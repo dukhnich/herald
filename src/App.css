@@ -1,10 +1,142 @@
+
+
 .App {
-  text-align: center;
+  /*text-align: center;*/
+  line-height: 1.6;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: #00a0ff;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.container-small {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.subheader {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+form {
+  position: relative;
+  background-color: #ffffff;
+}
+
+label {
+  color: #ad807d;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+input {
+  background-color: #ffffff;
+  border-width: 0;
+  border-bottom: 1px solid #cccccc;
+  width: 100%;
+  padding: 10px 0;
+  -webkit-box-shadow: inset 0 0 0 50px #fff;
+  font-size: 1.3rem;
+}
+
+
+.black-shadow:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 65%;
+  bottom: 0;
+  background-color: #000000;
+}
+
+.form-body {
+  padding: 50px 50px 30px;
+}
+
+.form-footer-wrapper{
+  padding: 30px 50px;
+}
+
+.form-footer {
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.main-header {
+  font-size: 4rem;
+  margin: 3rem 6rem 3rem;
+}
+
+.form-footer:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: #00a0ff;
+  z-index: -1;
+}
+
+
+.triangle {
+  width: 0;
+  height: 0;
+  margin-top: 3px;
+}
+
+.triangle.triangle-right {
+  border-top: 0.5em solid transparent;
+  border-left: 1em solid ;
+  border-bottom: 0.5em solid transparent;
+}
+
+.triangle.triangle-left {
+  border-top: 0.5em solid transparent;
+  border-right: 1em solid;
+  border-bottom: 0.5em solid transparent;
+}
+
+.underline {
+  position: relative;
+}
+
+.underline:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  position: absolute;
+  left: 0;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+header {
+  /*height: 30vh;*/
+}
+
+.logo-big {
+  width: 100px;
+  position: absolute;
+  top: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
