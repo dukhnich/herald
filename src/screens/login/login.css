@@ -1,0 +1,11 @@
+
+.main-header {
+    font-size: 4rem;
+    margin: 3rem 6rem 3rem;
+}
+
+.logo-big {
+    width: 100px;
+    position: absolute;
+    top: 0;
+}

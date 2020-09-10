@@ -9,23 +9,23 @@ const routes = [
     {
         path: "/login",
         exact: true,
-        component: Login,
+        children: <Login/>,
         isProtected: false
     },
     {
         path: "/registration",
         exact: true,
-        component: CreateUserForm,
+        children: <CreateUserForm/>,
         isProtected: false
     },
     {
         path: "/",
         exact: true,
-        component: HomeScreen,
+        children: <HomeScreen/>,
         isProtected: true
     },
     {
-        children: NotFound,
+        children: <NotFound/>,
         isProtected: false
     }
 ];

@@ -1,39 +1,35 @@
+import {decode} from "../../shared/helpers/decode";
+
+const token = localStorage.getItem("token");
+const user = token ? decode(token).payload.sub : {};
+console.log(user)
 const initialState = {
-    isAuth: !!localStorage.getItem("token"),
+    currentUser: {_id: user.id},
     status: "idle",
 };
 
-const authReducer = (state = initialState, action) => {
+const loadUserReducer = (state = initialState, action) => {
     // console.log(action)
     switch (action.type) {
-        case "login/pending":
+        case "loadUser/pending":
             return {
                 ...state,
                 status: "pending"
             };
-        case "login/resolved":
+        case "loadUser/resolved":
             return {
                 ...state,
-                isAuth: true,
+                currentUser: action.payload,
                 status: "resolved"
             };
-        case "login/rejected":
+        case "loadUser/rejected":
             return {
                 ...state,
                 status: "rejected",
-                isAuth: false
             };
-
-        case "logout":
-            return {
-                ...state,
-                isAuth: false,
-                status: "resolved"
-            };
-
         default:
             return state;
     }
 };
 
-export default authReducer;
+export default loadUserReducer;

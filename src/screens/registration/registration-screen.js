@@ -6,6 +6,7 @@ import Spinner from "../../shared/components/Spinner";
 import InputGroup from "../../shared/components/form/InputGroup";
 import FormFooter from "../../shared/components/form/FormFooter";
 import NavBar from "../../shared/components/navigation/NavBar";
+import {Redirect} from "react-router-dom";
 
 const createMutation = gql`
   mutation create($login: String!, $password: String!, $nick: String!) {
@@ -18,10 +19,23 @@ const createMutation = gql`
 
 const CreateUserForm = () => {
     const [values, setValues] = React.useState({});
+    const [status, setStatus] = React.useState(null);
+    if (status === "resolved") {
+        return <Redirect to="/login" />;
+    }
     const onSubmit = (e) => {
-        console.log(values)
         e.preventDefault();
-        API.request(createMutation, {...values}).then(console.log);
+        console.log(values);
+        setStatus("pending");
+        API.request(createMutation, values)
+            .then(result => {
+                console.log(result)
+                setStatus("resolved")
+            })
+            .catch(e => {
+                console.log(e);
+                setStatus("rejected")
+            });
     };
 
     const onChange = (e) => {
@@ -33,11 +47,16 @@ const CreateUserForm = () => {
     };
 
     return <>
-        <NavBar />
+        <NavBar text = {"Registration"}/>
+        <div className="banner">
+            <picture className={"cover"}>
+                <img src="images/eilean-donan-view.jpg" alt="background"/>
+            </picture>
+        </div>
+        <h1 className={"m-4"}>Sign Up</h1>
+
         <div className={"black-shadow"}>
             <div className={"container-small"}>
-                <h1 className={"mb-4"}>Sign Up</h1>
-
                 <form onSubmit={onSubmit}>
                     <div className={"form-body"}>
 
@@ -67,12 +86,22 @@ const CreateUserForm = () => {
                         </InputGroup>
                     </div>
                     <FormFooter>
-                        <div onClick={onSubmit} className={"triangle triangle-right"}/>
+                        <button type={"submit"} className={"icon-button"}>
+                            <div className={"triangle triangle-right"}/>
+                        </button>
                         <h5 className={"subheader"}>
                             Create profile
                         </h5>
                     </FormFooter>
                 </form>
+                <div className="my-3">
+                    {status === "pending" ? <Spinner /> : null}
+                </div>
+                <div className="mt-5 text-center">
+                    {status === "rejected" ? (
+                        <span className="alert alert-danger">Something went wrong</span>
+                    ) : null}
+                </div>
             </div>
         </div>
     </>

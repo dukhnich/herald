@@ -1,0 +1,9 @@
+.navigation-bar {
+    background-color: black;
+    font-size: 1.3rem;
+}
+
+.navigation-bar a {
+    text-decoration: none;
+    color: white;
+}

@@ -9,7 +9,7 @@ import ProtectedRoute from "./shared/components/protected-route";
 export default function App() {
   return (
       <div className="App">
-        <Provider store={store}>
+          <Provider store={store}>
           <Router>
             <Switch>
               {routes.map((route, index) => {
@@ -23,6 +23,7 @@ export default function App() {
             </Switch>
           </Router>
         </Provider>
+          {/*</div>*/}
       </div>
   );
 }
