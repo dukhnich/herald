@@ -2,6 +2,7 @@ import React from "react";
 import HomeScreen from "./home";
 import Login from "./login";
 import CreateUserForm from "./registration";
+import Menu from "./menu";
 
 const NotFound = () => <div> Oops, not found</div>;
 
@@ -17,6 +18,12 @@ const routes = [
         exact: true,
         children: <CreateUserForm/>,
         isProtected: false
+    },
+    {
+        path: "/menu",
+        exact: true,
+        children: <Menu/>,
+        isProtected: true
     },
     {
         path: "/",

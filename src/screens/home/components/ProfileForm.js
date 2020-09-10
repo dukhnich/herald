@@ -1,16 +1,11 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
 import API from "../../../API";
-import NavBar from "../../../shared/components/navigation/NavBar";
 import InputGroup from "../../../shared/components/form/InputGroup";
 import FormFooter from "../../../shared/components/form/FormFooter";
-import Spinner from "../../../shared/components/Spinner";
 import {gql} from "graphql-request";
-import {instanceOf} from "prop-types";
 import {connect} from "react-redux";
-import {loadUser} from "../../../services/userData";
 import ProfileHeader from "./ProfileHeader";
-import {login, logout} from "../../../services/login";
+import {logout} from "../../../services/login";
 
 const createMutation = gql`
   mutation changeUser($_id: ID!, $login: String, $password: String, $nick: String, $avatar: MediaInput) {
