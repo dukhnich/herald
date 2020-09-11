@@ -6,6 +6,17 @@ import Menu from "./menu";
 
 const NotFound = () => <div> Oops, not found</div>;
 
+export const menuRoutes =   [
+    {
+        path: "/",
+        name: "Profile"
+    },
+    {
+        path: "/registration",
+        name: "New user"
+    },
+]
+
 const routes = [
     {
         path: "/login",

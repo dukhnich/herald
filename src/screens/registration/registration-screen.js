@@ -86,7 +86,7 @@ const CreateUserForm = () => {
                         </InputGroup>
                     </div>
                     <FormFooter>
-                        <button type={"submit"} className={"icon-button"}>
+                        <button type={"submit"} className={"custom-button"}>
                             <div className={"triangle triangle-right"}/>
                         </button>
                         <h5 className={"subheader"}>

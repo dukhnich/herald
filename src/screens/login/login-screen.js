@@ -57,7 +57,7 @@ const Login = ({ dispatch, authStatus, isLoggedIn}) => {
                     </div>
 
                     <FormFooter>
-                        <button type={"submit"} className={"icon-button"}>
+                        <button type={"submit"} className={"custom-button"}>
                             <div className={"triangle triangle-right"}/>
                         </button>
 

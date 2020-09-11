@@ -1,0 +1,20 @@
+.main-avatar{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    background-color: #ffbdb8;
+    flex-shrink: 0;
+    position: relative;
+    /*z-index: -2;*/
+}
+.main-avatar img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /*z-index: -1;*/
+}
+
+.avatar-content {
+    position: relative;
+    z-index: 2;
+}

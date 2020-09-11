@@ -1,7 +1,7 @@
 import React from "react";
 import {ENDPOINT} from "../../../API";
 import {connect} from "react-redux";
-import Avatar from "./Avatar";
+import Avatar from "../../../shared/components/Avatar/Avatar";
 
 const ProfileHeader = ({currentUser, changeUserData}) => {
     const {login, avatar,_id} = currentUser;
@@ -37,7 +37,7 @@ const ProfileHeader = ({currentUser, changeUserData}) => {
             <div className={"d-flex justify-content-between"}>
                 <Avatar user={currentUser} />
                 <div className={"mx-4 d-flex flex-column align-items-end justify-content-center"}>
-                    <h2>{login}</h2>
+                    <h1 className={"big-header text-break text-right"}>{login}</h1>
                     <label className={"underline underline-blue blue-text"}>
                         {avatar ? "Change avatar" : "Add avatar"}
                         <input

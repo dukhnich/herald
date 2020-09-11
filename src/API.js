@@ -4,7 +4,7 @@ import { GraphQLClient } from "graphql-request";
 export const ENDPOINT =
     "http://chat.fs.a-level.com.ua";
 
-export const client = new GraphQLClient(ENDPOINT+"/graphql");
+const client = new GraphQLClient(ENDPOINT+"/graphql");
 
 const token = localStorage.getItem("token");
 

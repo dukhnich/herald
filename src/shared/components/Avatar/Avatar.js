@@ -1,5 +1,6 @@
 import React from "react";
 import {ENDPOINT} from "../../../API";
+import "./Avatar.css"
 
 const Avatar = ({user, children}) => {
     const {avatar, login} = user

@@ -2,8 +2,6 @@ import React from "react";
 import {Link} from "react-router-dom";
 import "./navigation.css"
 import {string} from "prop-types";
-import InputGroup from "../form/InputGroup";
-import FormFooter from "../form/FormFooter";
 import {connect} from "react-redux";
 
 const NavBar = ({text, isLoggedIn}) => {

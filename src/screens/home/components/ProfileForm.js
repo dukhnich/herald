@@ -55,7 +55,7 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
             changeUserData = {mutateUser}
         />
                 <div className={"form-body"}>
-                    <InputGroup label={currentUser.nick}>
+                    <InputGroup label={"Nick"}>
                         <input
                             type="text"
                             placeholder={"New nick"}
@@ -87,7 +87,7 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
                             <button
                                 onClick={changePassword}
                                 type={"button"}
-                                className={"icon-button"}
+                                className={"custom-button"}
                             >
                                 <div className={"triangle triangle-right"}/>
                             </button>

@@ -1,7 +1,8 @@
 
 .main-header {
-    font-size: 4rem;
+    font-size: 5rem;
     margin: 3rem 6rem 3rem;
+    letter-spacing: -0.05em;
 }
 
 .logo-big {
