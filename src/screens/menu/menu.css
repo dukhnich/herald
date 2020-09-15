@@ -1,0 +1,14 @@
+
+.menu-item.medium-header {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+}
+.menu-item a {
+    color: inherit;
+}
+
+.menu-item a:hover {
+    color: #ffbdb8;
+    text-decoration: none;
+}

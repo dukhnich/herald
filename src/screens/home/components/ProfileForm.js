@@ -9,7 +9,7 @@ import {logout} from "../../../services/login";
 
 const createMutation = gql`
   mutation changeUser($_id: ID!, $login: String, $password: String, $nick: String, $avatar: MediaInput) {
-    UserUpsert(user: {_id: $_id, login: $login, password: $password, nick: $nick, avatar: $avatar }) {
+    UserUpsert(user: {_id: $_id, login: $login, password: $password, nick: $nick, avatar: $avatar}) {
       login
       nick
     }

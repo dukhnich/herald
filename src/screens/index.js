@@ -3,6 +3,7 @@ import HomeScreen from "./home";
 import Login from "./login";
 import CreateUserForm from "./registration";
 import Menu from "./menu";
+import ChatSearch from "./chat-search";
 
 const NotFound = () => <div> Oops, not found</div>;
 
@@ -14,6 +15,10 @@ export const menuRoutes =   [
     {
         path: "/registration",
         name: "New user"
+    },
+    {
+        path: "/chats",
+        name: "Chats"
     },
 ]
 
@@ -34,6 +39,12 @@ const routes = [
         path: "/menu",
         exact: true,
         children: <Menu/>,
+        isProtected: true
+    },
+    {
+        path: "/chats",
+        exact: true,
+        children: <ChatSearch/>,
         isProtected: true
     },
     {

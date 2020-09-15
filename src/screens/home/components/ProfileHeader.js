@@ -35,7 +35,7 @@ const ProfileHeader = ({currentUser, changeUserData}) => {
 
     return (
             <div className={"d-flex justify-content-between"}>
-                <Avatar user={currentUser} />
+                <Avatar data={currentUser} />
                 <div className={"mx-4 d-flex flex-column align-items-end justify-content-center"}>
                     <h1 className={"big-header text-break text-right"}>{login}</h1>
                     <label className={"underline underline-blue blue-text"}>

@@ -9,6 +9,11 @@ const loadUserQuery = gql`
         avatar {
             url
         }
+        chats {
+        _id 
+        title
+        members {nick}
+        }
     }    
   }
 `;
