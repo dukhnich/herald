@@ -11,11 +11,11 @@ const MenuFooter = ({currentUser, dispatch}) => {
 
     return (
         <div className={"black-footer d-flex justify-content-between"}>
-            <div className={"d-flex flex-column justify-content-center ml-4"}>
-                <button className={"custom-button medium-header"} onClick={onLogout}>Logout</button>
-                <h6 className={"rose-text upper-header"}>{currentUser.login}</h6>
-            </div>
-            <Avatar data={currentUser} />
+                <div className={"d-flex flex-column justify-content-center ml-4"}>
+                    <button className={"custom-button medium-header"} onClick={onLogout}>Logout</button>
+                    <h6 className={"rose-text upper-header"}>{currentUser.login}</h6>
+                </div>
+                <Avatar data={currentUser} />
         </div>
     )
 }

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 
 const NavBar = ({text, isLoggedIn}) => {
     return (
-        <nav className="navbar navbar-expand-lg navigation-bar mb-4">
+        <nav className="navbar navbar-expand-lg navigation-bar">
             <div className="navbar-collapse">
                 <div className={"container-small"}>
 

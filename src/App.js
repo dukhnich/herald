@@ -9,6 +9,8 @@ import ProtectedRoute from "./shared/components/protected-route";
 export default function App() {
   return (
       <div className="App">
+          <div className={"my-wrapper"}>
+
           <Provider store={store}>
           <Router>
             <Switch>
@@ -23,7 +25,7 @@ export default function App() {
             </Switch>
           </Router>
         </Provider>
-          {/*</div>*/}
+          </div>
       </div>
   );
 }

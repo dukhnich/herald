@@ -1,12 +1,13 @@
 
 .main-header {
     font-size: 5rem;
-    margin: 3rem 6rem 3rem;
+    margin-bottom: 15px;
     letter-spacing: -0.05em;
 }
 
 .logo-big {
     width: 100px;
-    position: absolute;
-    top: 0;
+    flex-shrink: 0;
+    /*position: absolute;*/
+    /*top: 0;*/
 }

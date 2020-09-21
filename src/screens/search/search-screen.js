@@ -4,7 +4,7 @@ import Spinner from "../../shared/components/Spinner";
 import { gql } from "graphql-request";
 import NavBar from "../../shared/components/navigation/NavBar";
 import SearchForm from "./components/SearchForm";
-import List from "./components/List";
+import List from "../../shared/components/List";
 
 const chatsFind = gql`
   query chatFind ($query: String){
@@ -12,7 +12,7 @@ const chatsFind = gql`
         _id
         title
         avatar {url}
-        owner {nick}
+        owner {_id nick}
         members {_id}
     }    
   }
@@ -29,7 +29,7 @@ const usersFind = gql`
   }
 `;
 
-const ChatSearch = () => {
+const Search = () => {
     const [result, setResult] = React.useState(null);
     const [status, setStatus] = React.useState(null);
     const [isSearchChat, setIsSearchChat] = React.useState(true);
@@ -40,16 +40,18 @@ const ChatSearch = () => {
 
 
     const searchResult =  (text) => {
-        console.log(text)
         if (!text) {
             setResult(null);
             return
         }
         setStatus("pending");
+        const key = isSearchChat ? "title" : "nick";
         const request = JSON.stringify([
             {
-                [isSearchChat ? "title" : "nick"]:
-                    new RegExp(text).toString()
+                [key]: new RegExp(text).toString()
+            },
+            {
+                sort:[{[key]: 1}]
             }
         ])
         client
@@ -64,30 +66,29 @@ const ChatSearch = () => {
     return (
         <>
             <NavBar text = {"Search Chat"}/>
-
-            <div className={"container-small"}>
-                <SearchForm
-                    onSearch={searchResult}
-                    isSearchChat = {isSearchChat}
-                    onCheck = {changeChatOrUser}
-                />
-            </div>
-
-            <div className={"black-footer"}>
+            <main>
                 <div className={"container-small"}>
-
-                {status === null ? null : <Spinner /> }
-                {Array.isArray(result) ?
-                    result.length === 0 ? (
-                        <span>No Data</span>
-                    ) : (
-                        // JSON.stringify(result)
-                        <List items={result} />
-                    ) : null}
+                    <SearchForm
+                        onSearch={searchResult}
+                        isSearchChat = {isSearchChat}
+                        onCheck = {changeChatOrUser}
+                    />
                 </div>
-            </div>
+                {status === "pending" ? <Spinner /> : null}
+                    {Array.isArray(result) ?
+                        <div className={"black-footer pt-2"}>
+                            <div className={"container-small mt-5"}>
+                                {result.length === 0 ? (
+                                    <h5 className={"subheader"}>No Data</h5>
+                                ) : (
+                                    <List items={result}/>
+                                )}
+                            </div>
+                        </div>
+                    : null}
+            </main>
         </>
     );
 };
 
-export default ChatSearch;
+export default Search;

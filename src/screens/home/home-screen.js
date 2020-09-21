@@ -21,8 +21,8 @@ const HomeScreen = ({currentUser, dispatch, status}) => {
 
     return (
         <>
-        <NavBar text={"Profile"}/>
-            <div className={"black-shadow"}>
+            <NavBar text={"Profile"}/>
+            <main className={"black-shadow low-shadow"}>
                 <div className={"container-small"}>
                     {status === "pending" ? <Spinner /> : null}
                     {status === "resolved" ?
@@ -32,8 +32,8 @@ const HomeScreen = ({currentUser, dispatch, status}) => {
                         : null
                     }
                 </div>
-            </div>
-            </>
+            </main>
+        </>
     );
 };
 

@@ -3,9 +3,11 @@ import HomeScreen from "./home";
 import Login from "./login";
 import CreateUserForm from "./registration";
 import Menu from "./menu";
-import ChatSearch from "./chat-search";
-
-const NotFound = () => <div> Oops, not found</div>;
+import Search from "./search";
+import Chats from "./chats/chats-screen";
+import NavBar from "../shared/components/navigation/NavBar";
+import Chat from "./chat/Chat";
+const NotFound = () => <NavBar text={"Page not found"}/>
 
 export const menuRoutes =   [
     {
@@ -15,6 +17,10 @@ export const menuRoutes =   [
     {
         path: "/registration",
         name: "New user"
+    },
+    {
+        path: "/search",
+        name: "Search"
     },
     {
         path: "/chats",
@@ -42,9 +48,21 @@ const routes = [
         isProtected: true
     },
     {
+        path: "/search",
+        exact: true,
+        children: <Search/>,
+        isProtected: true
+    },
+    {
         path: "/chats",
         exact: true,
-        children: <ChatSearch/>,
+        children: <Chats/>,
+        isProtected: true
+    },
+    {
+        path: "/chats/:id",
+        exact: true,
+        children: <Chat/>,
         isProtected: true
     },
     {

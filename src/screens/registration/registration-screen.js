@@ -46,16 +46,17 @@ const CreateUserForm = () => {
         }));
     };
 
-    return <>
+    return (
+        <>
         <NavBar text = {"Registration"}/>
-        <div className="banner">
-            <picture className={"cover"}>
-                <img src="images/eilean-donan-view.jpg" alt="background"/>
-            </picture>
-        </div>
-        <h1 className={"m-4"}>Sign Up</h1>
+            <div className="banner">
+                <picture className={"cover"}>
+                    <img src="images/eilean-donan-view.jpg" alt="background"/>
+                </picture>
+                <h1 className={"m-4"}>Sign Up</h1>
 
-        <div className={"black-shadow"}>
+            </div>
+            <div className={"black-shadow"}>
             <div className={"container-small"}>
                 <form onSubmit={onSubmit}>
                     <div className={"form-body"}>
@@ -105,6 +106,7 @@ const CreateUserForm = () => {
             </div>
         </div>
     </>
+    )
 }
 
 export default CreateUserForm

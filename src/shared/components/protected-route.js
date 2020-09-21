@@ -2,12 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import {loadUser} from "../../services/userData";
+import {loadChats} from "../../services/ownersChats";
 
-const ProtectedRoute = ({ children, redirectTo, dispatch, currentUser, isAuth, ...rest }) => {
+const ProtectedRoute = ({ children, redirectTo, dispatch, currentUserChats, currentUser, isAuth, ...rest }) => {
     // console.log("isAuth", isAuth, currentUser);
     React.useEffect(() => {
             if (!currentUser.login) {
                 dispatch(loadUser(currentUser._id));
+            }
+            if (currentUserChats.length === 0) {
+                dispatch(loadChats(currentUser._id));
             }
         },
         [])
@@ -35,6 +39,7 @@ ProtectedRoute.defaultProps = {
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
+    currentUserChats: state.chats.currentUserChats,
     isAuth: (state.auth.isAuth),
 });
 

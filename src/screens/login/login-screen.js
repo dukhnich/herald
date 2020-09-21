@@ -26,15 +26,16 @@ const Login = ({ dispatch, authStatus, isLoggedIn}) => {
     };
     return (
         <>
-            <header>
+
+        <header className={"mt-4 d-flex align-items-end"}>
                 <img
                     className={"logo-big"}
                     src={"images/logo-rose.png"}
                     alt={"logo"}
                 />
-                <h1 className={"main-header"}>Herald </h1>
+                <h1 className={"main-header"}>Herald</h1>
             </header>
-            <div className={"black-shadow"}>
+        <main className={"black-shadow"}>
                 <div className={"container-small"}>
                     <form onSubmit={onSubmit}>
                     <div className={"form-body"}>
@@ -81,7 +82,7 @@ const Login = ({ dispatch, authStatus, isLoggedIn}) => {
                         ) : null}
                     </div>
                 </div>
-            </div>
+            </main>
 
     </>
     );

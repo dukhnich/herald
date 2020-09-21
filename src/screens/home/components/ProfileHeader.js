@@ -25,7 +25,7 @@ const ProfileHeader = ({currentUser, changeUserData}) => {
                 .then((res) => res.json())
                 .then((json) => {
                         console.log("UPLOAD RESULT", json);
-                        changeUserData({"_id": _id, "avatar": {_id: json._id}});
+                        changeUserData({"_id": _id, "avatar": {_id: json._id, userAvatar: {"_id": _id}}});
                     }
                 );
         }
@@ -37,7 +37,7 @@ const ProfileHeader = ({currentUser, changeUserData}) => {
             <div className={"d-flex justify-content-between"}>
                 <Avatar data={currentUser} />
                 <div className={"mx-4 d-flex flex-column align-items-end justify-content-center"}>
-                    <h1 className={"big-header text-break text-right"}>{login}</h1>
+                    <h1 className={"medium-header text-break text-right"}>{login}</h1>
                     <label className={"underline underline-blue blue-text"}>
                         {avatar ? "Change avatar" : "Add avatar"}
                         <input

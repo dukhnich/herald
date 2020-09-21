@@ -10,9 +10,11 @@ const loadUserQuery = gql`
             url
         }
         chats {
-        _id 
-        title
-        members {nick}
+            _id 
+            title
+            owner {_id}
+            members {_id nick}
+            avatar {url userAvatar {_id}}
         }
     }    
   }

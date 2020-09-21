@@ -6,7 +6,7 @@ const Avatar = ({data, isBig, isUser, children}) => {
     const {avatar} = data
     const login = isUser ? data.login : data.title
     let url;
-    if (avatar) {
+    if (avatar && avatar.url) {
         url = ENDPOINT+"/"+avatar.url
     }
     else {
