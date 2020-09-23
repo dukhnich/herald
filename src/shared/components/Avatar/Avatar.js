@@ -1,6 +1,8 @@
 import React from "react";
 import {ENDPOINT} from "../../../API";
 import "./Avatar.css"
+import user from './empty-avatar.png';
+import chat from './empty-chat-avatar.png';
 
 const Avatar = ({data, isBig, isUser, children}) => {
     const {avatar} = data
@@ -10,7 +12,7 @@ const Avatar = ({data, isBig, isUser, children}) => {
         url = ENDPOINT+"/"+avatar.url
     }
     else {
-        url = isUser ? "images/empty-avatar.png" : "images/empty-chat-avatar.png"
+        url = isUser ? user : chat
     }
     return (
         <div className={"avatar " + (isBig ? "big-avatar" : "small-avatar")}>

@@ -4,11 +4,10 @@ import {gql} from "graphql-request";
 import client from "../../API";
 import NavBar from "../../shared/components/navigation/NavBar";
 import Spinner from "../../shared/components/Spinner";
-import API from "../../API";
 import MessageList from "./components/MessageList";
 import {connect} from "react-redux";
 import {removeNotifications} from "../../services/notifications";
-import Icon from "../../shared/icon";
+import ChatFooter from "./components/ChatFooter";
 
 const loadChatQuery = gql`
   query chatFind($query: String) {
@@ -47,39 +46,24 @@ const loadChatQuery = gql`
   }
 `;
 
-const createMsg = gql`
-  mutation createMsg($text: String, $chat:ChatInput) {
-    MessageUpsert(message: {text: $text, chat: $chat}) {
-      _id
-    }
-  }
-`;
-
 const Chat = ({notifications, dispatch, currentUser}) => {
     const { id } = useParams();
     const [chat, setChat] = React.useState({})
     const [status, setStatus] = React.useState("pending")
-    const [msg, setMsg] = React.useState("");
     const [newMessages, setNewMessages] = React.useState([]);
-    const thisChatNotifications = chat._id ? notifications.filter(msg => msg.chat._id === chat._id) : [];
-
-    const onChange = (e) => {
-        setMsg(e.target.value)
-    };
+    const [timeoutId, setTimeoutId] = React.useState(null);
 
     const loadChat = () => {
         const values = {
             query: JSON.stringify([
-                {
-                    "_id": id
-                }
+                {"_id": id}
             ])
         }
-
         client.request(loadChatQuery, values)
             .then(r => {
                 setStatus("resolved")
                 setChat(r.ChatFindOne);
+                setNewMessages([]);
             })
             .catch(error => {
                     setStatus("rejected")
@@ -88,41 +72,32 @@ const Chat = ({notifications, dispatch, currentUser}) => {
             );
     }
 
-    const sendMsg = (e) => {
-        e.preventDefault();
-        API.request(createMsg
-            , {
-                text: msg,
-                chat: {_id: id}
-            }
-        )
-            .then(()=> setMsg("")
-            )
-            .catch(e => {
-                console.log(e);
-            });
-    };
+    React.useEffect(() => {
+            loadChat()
+        },
+        [])
 
-    const removeNotification = (notes) => {
+    const deleteNotification = (notes) => {
         if (notes.length) {
+            setTimeoutId((prev) => {
+                if (prev) {
+                    clearTimeout(prev)
+                }
+                return setTimeout(() => {
+                        console.log("start remove", newMessages);
+                        dispatch(removeNotifications(notes));
+                        loadChat();
+                    },
+                    5000)
+            })
 
-            const timeoutId = setTimeout(() => {
-                    console.log("start remove");
-                    dispatch(removeNotifications(notes));
-                    setNewMessages([]);
-                    loadChat();
-                },
-                5000)
             return () => clearTimeout(timeoutId)
         }
     }
 
-    React.useEffect(() => {
-           loadChat()
-        },
-        [])
-
     React.useEffect( ()=>{
+        const thisChatNotifications = chat._id ? notifications.filter(msg => msg.chat._id === chat._id) : [];
+
         if (thisChatNotifications.length) {
             const myNewMsg = thisChatNotifications.filter(msg => msg.owner._id === currentUser._id);
             if (myNewMsg.length) {
@@ -133,11 +108,11 @@ const Chat = ({notifications, dispatch, currentUser}) => {
                 setNewMessages(thisChatNotifications);
             }
         }
-    },[thisChatNotifications])
+    },[notifications])
 
     React.useEffect( ()=>{
         if (newMessages.length) {
-                removeNotification(thisChatNotifications)
+            deleteNotification(newMessages)
         }
     },[newMessages])
 
@@ -152,25 +127,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
                     : null
                 }
             </main>
-            <div className={"black-footer p-3"}>
-
-                <button
-                    onClick={sendMsg}
-                    aria-label={"send message"}
-                    type ="button"
-                    className={"custom-button round-button"}>
-                    <Icon icon="send" />
-                </button>
-                <div>
-                    <textarea
-                        className={"black-input"}
-                        placeholder={"Type message"}
-                        name={"msg"}
-                        value={msg}
-                        onChange={onChange}
-                    />
-                </div>
-            </div>
+            <ChatFooter chatID = {id}/>
         </div>
     )
 }
