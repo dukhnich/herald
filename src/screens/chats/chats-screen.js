@@ -22,7 +22,7 @@ const Chats = ({currentUser, statusUser, statusChats, dispatch, currentUserChats
     return (
         <>
             <NavBar text = {"Chats"}/>
-            <main>
+            {/*<main>*/}
                 <div className={"container-small"}>
                     <AddChatForm
                         onAdd = {onAddChat}
@@ -55,7 +55,7 @@ const Chats = ({currentUser, statusUser, statusChats, dispatch, currentUserChats
                         </div>
                     </div>
                 : null}
-            </main>
+            {/*</main>*/}
         </>
     );
 };

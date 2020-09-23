@@ -126,7 +126,7 @@ label {
     font-weight: 700;
 }
 
-input, select {
+input, select, textarea {
   background-color: transparent;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -294,6 +294,15 @@ ul.search-list {
 
 }
 
+ul.message-list {
+    border-radius: 0;
+    height: calc(100vh - 205px);
+    overflow-y:auto;
+    /*overflow-x: hidden;*/
+    padding-right: 15px;
+
+}
+
 li.active-item {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
@@ -333,6 +342,34 @@ label.toggler::before {
 label.toggler.toggler-checked::before {
     left: calc(2.5em - 5px);
     background-color: #ffbdb8;
+}
+
+.order-first {
+    order: -1;
+}
+
+.message-text {
+    color: #000000;
+    font-family: 'Karla', 'Roboto', 'Arial', sans-serif;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    white-space: pre-wrap;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    right: -5px;
+}
+
+::-webkit-scrollbar-track:vertical {
+
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 @media (prefers-reduced-motion: no-preference) {

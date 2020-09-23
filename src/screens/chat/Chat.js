@@ -2,14 +2,11 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {gql} from "graphql-request";
 import client from "../../API";
-import {loadUser} from "../../services/userData";
-import {loadChats} from "../../services/ownersChats";
 import NavBar from "../../shared/components/navigation/NavBar";
 import Spinner from "../../shared/components/Spinner";
-import InputGroup from "../../shared/components/form/InputGroup";
-import FormFooter from "../../shared/components/form/FormFooter";
 import API from "../../API";
-import List from "../../shared/components/List";
+import MessageList from "./components/MessageList";
+import {connect} from "react-redux";
 
 const loadChatQuery = gql`
   query chatFind($query: String) {
@@ -56,11 +53,16 @@ const createMsg = gql`
   }
 `;
 
-const Chat = () => {
+const Chat = ({notifications, dispatch}) => {
     const { id } = useParams();
     const [chat, setChat] = React.useState({})
     const [status, setStatus] = React.useState("pending")
-    const [msg, setMsg] = React.useState("")
+    const [msg, setMsg] = React.useState("");
+    const[needLoad, setNeedLoad] = React.useState(true)
+
+    const onChangeData = () => {
+        setNeedLoad (true)
+    }
 
     const onChange = (e) => {
         setMsg(e.target.value)
@@ -74,12 +76,15 @@ const Chat = () => {
                 chat: {_id: id}
             }
         )
+            .then(()=> setMsg("")
+            )
             .catch(e => {
                 console.log(e);
             });
     };
 
     React.useEffect(() => {
+        if (needLoad) {
             const values = {
                 query: JSON.stringify([
                     {
@@ -89,30 +94,33 @@ const Chat = () => {
             }
 
             client.request(loadChatQuery, values)
-                .then (r => {
+                .then(r => {
                     setStatus("resolved")
-                    setChat(r.ChatFindOne)
-            })
-            .catch (error => {
-                    setStatus("rejected")
-                    console.log(error)
-                }
-            );
+                    setChat(r.ChatFindOne);
+
+                    setNeedLoad(false)
+                })
+                .catch(error => {
+                        setStatus("rejected")
+                        console.log(error)
+                    }
+                );
+        }
         },
-        [])
+        [needLoad])
 
     return (
-        <>
+        <div className={"vh-100 my-wrapper"}>
             <NavBar text = {chat.title ? chat.title : "Chat"}/>
-            <main>
+            <main className={"p-4"}>
                 {status === "pending" ? <Spinner /> : null}
                 {status === "resolved" && chat.messages ? (
-                        <List items={chat.messages} />
+                        <MessageList chat={chat} onChangeData={onChangeData}/>
                     )
                     : null
                 }
             </main>
-            <div className={"black-footer mt-5"}>
+            <div className={"black-footer p-3"}>
 
                 <button
                     onClick={sendMsg}
@@ -121,18 +129,23 @@ const Chat = () => {
                     className={"custom-button round-button"}>
                     >
                 </button>
-                <div className={"container-small"}>
-                    <input
+                <div>
+                    <textarea
                         className={"black-input"}
                         placeholder={"Type message"}
-                        type="text"
                         name={"msg"}
+                        value={msg}
                         onChange={onChange}
                     />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-export default Chat
+const mapStateToProps = (state) => ({
+    currentUser: state.currentUser.currentUser,
+    notifications: state.notifications.notifications,
+});
+
+export default connect(mapStateToProps)(Chat);

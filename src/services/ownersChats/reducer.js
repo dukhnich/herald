@@ -1,8 +1,3 @@
-import {decode} from "../../shared/helpers/decode";
-
-const token = localStorage.getItem("token");
-const user = token ? decode(token).payload.sub : {};
-console.log(user)
 const initialState = {
     currentUserChats: [],
     status: "idle",

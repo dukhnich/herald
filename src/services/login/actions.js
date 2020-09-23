@@ -26,7 +26,6 @@ export const login = (values) => async (dispatch, _, api) => {
         socket.emit('jwt', login);
         socket.on('jwt_ok',   data => console.log(data))
         socket.on('jwt_fail', error => console.log(error))
-        socket.on('msg', msg => console.log(msg));
         dispatch({ type: "login/resolved" })
     } catch (error) {
         dispatch({ type: "login/rejected" });
