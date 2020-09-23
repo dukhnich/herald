@@ -7,6 +7,8 @@ import Spinner from "../../shared/components/Spinner";
 import API from "../../API";
 import MessageList from "./components/MessageList";
 import {connect} from "react-redux";
+import {removeNotifications} from "../../services/notifications";
+import Icon from "../../shared/icon";
 
 const loadChatQuery = gql`
   query chatFind($query: String) {
@@ -53,20 +55,38 @@ const createMsg = gql`
   }
 `;
 
-const Chat = ({notifications, dispatch}) => {
+const Chat = ({notifications, dispatch, currentUser}) => {
     const { id } = useParams();
     const [chat, setChat] = React.useState({})
     const [status, setStatus] = React.useState("pending")
     const [msg, setMsg] = React.useState("");
-    const[needLoad, setNeedLoad] = React.useState(true)
-
-    const onChangeData = () => {
-        setNeedLoad (true)
-    }
+    const [newMessages, setNewMessages] = React.useState([]);
+    const thisChatNotifications = chat._id ? notifications.filter(msg => msg.chat._id === chat._id) : [];
 
     const onChange = (e) => {
         setMsg(e.target.value)
     };
+
+    const loadChat = () => {
+        const values = {
+            query: JSON.stringify([
+                {
+                    "_id": id
+                }
+            ])
+        }
+
+        client.request(loadChatQuery, values)
+            .then(r => {
+                setStatus("resolved")
+                setChat(r.ChatFindOne);
+            })
+            .catch(error => {
+                    setStatus("rejected")
+                    console.log(error)
+                }
+            );
+    }
 
     const sendMsg = (e) => {
         e.preventDefault();
@@ -83,39 +103,51 @@ const Chat = ({notifications, dispatch}) => {
             });
     };
 
-    React.useEffect(() => {
-        if (needLoad) {
-            const values = {
-                query: JSON.stringify([
-                    {
-                        "_id": id
-                    }
-                ])
-            }
+    const removeNotification = (notes) => {
+        if (notes.length) {
 
-            client.request(loadChatQuery, values)
-                .then(r => {
-                    setStatus("resolved")
-                    setChat(r.ChatFindOne);
-
-                    setNeedLoad(false)
-                })
-                .catch(error => {
-                        setStatus("rejected")
-                        console.log(error)
-                    }
-                );
+            const timeoutId = setTimeout(() => {
+                    console.log("start remove");
+                    dispatch(removeNotifications(notes));
+                    setNewMessages([]);
+                    loadChat();
+                },
+                5000)
+            return () => clearTimeout(timeoutId)
         }
+    }
+
+    React.useEffect(() => {
+           loadChat()
         },
-        [needLoad])
+        [])
+
+    React.useEffect( ()=>{
+        if (thisChatNotifications.length) {
+            const myNewMsg = thisChatNotifications.filter(msg => msg.owner._id === currentUser._id);
+            if (myNewMsg.length) {
+                dispatch(removeNotifications(thisChatNotifications));
+                loadChat();
+            }
+            else {
+                setNewMessages(thisChatNotifications);
+            }
+        }
+    },[thisChatNotifications])
+
+    React.useEffect( ()=>{
+        if (newMessages.length) {
+                removeNotification(thisChatNotifications)
+        }
+    },[newMessages])
 
     return (
-        <div className={"vh-100 my-wrapper"}>
+        <div className={"vh-100 my-wrapper "}>
             <NavBar text = {chat.title ? chat.title : "Chat"}/>
             <main className={"p-4"}>
                 {status === "pending" ? <Spinner /> : null}
                 {status === "resolved" && chat.messages ? (
-                        <MessageList chat={chat} onChangeData={onChangeData}/>
+                        <MessageList messages={chat.messages} newMsg = {newMessages}/>
                     )
                     : null
                 }
@@ -127,7 +159,7 @@ const Chat = ({notifications, dispatch}) => {
                     aria-label={"send message"}
                     type ="button"
                     className={"custom-button round-button"}>
-                    >
+                    <Icon icon="send" />
                 </button>
                 <div>
                     <textarea

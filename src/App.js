@@ -5,14 +5,8 @@ import {connect, Provider} from "react-redux";
 import routes from "./screens";
 import store from "./store/configure-store";
 import ProtectedRoute from "./shared/components/protected-route";
-import {socket} from "./API";
-import {getNotifications} from "./services/notifications";
 
-const App = ({dispatch, currentUser}) => {
-    // if (currentUser._id) {
-    //     console.log(getNotifications)
-    //     socket.on('msg', msg => dispatch(getNotifications(msg)));
-    // }
+const App = () => {
     return (
       <div className="App">
           <div className={"my-wrapper"}>
@@ -36,9 +30,4 @@ const App = ({dispatch, currentUser}) => {
   );
 }
 export default App;
-// const mapStateToProps = (state) => ({
-//     currentUser: state.currentUser.currentUser,
-//     // notifications: state.notifications.notifications,
-// });
-//
-// export default connect(mapStateToProps)(App);
+

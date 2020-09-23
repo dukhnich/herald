@@ -1,30 +1,15 @@
 import React from "react";
 import MessageItem from "../../../shared/components/MessageItem";
-import {connect} from "react-redux";
-import {removeNotifications} from "../../../services/notifications";
+import Icon from "../../../shared/icon";
 
-const MessageList = ({chat, notifications, onChangeData}) => {
-    const {messages, _id} = chat;
+const MessageList = ({messages, newMsg}) => {
     const [activeItem, setActive] = React.useState(null);
     const ul = React.useRef();
-    const [newMessages, setNewMessages] = React.useState([])
-    const thisChatNewMessages = notifications.filter(msg => msg.chat._id === _id)
+
 
     React.useEffect(()=>{
         ul.current.scrollTop = ul.current.scrollHeight;
-        if (thisChatNewMessages.length) {
-
-            const timeoutId = setTimeout(() => {
-                    console.log("start remove")
-
-                    removeNotifications(thisChatNewMessages);
-
-                    onChangeData()
-                },
-                3000)
-            return () => clearTimeout(timeoutId)
-        }
-    },[notifications])
+    },[messages, newMsg])
 
     return (
 
@@ -41,9 +26,14 @@ const MessageList = ({chat, notifications, onChangeData}) => {
                     <MessageItem message={msg} activeItem={activeItem} />
                 </li>
             ))}
-            {thisChatNewMessages.length ? (<>
-                    <li><h1>New messages</h1></li>
-                    {thisChatNewMessages.map((msg) => (
+            {newMsg.length ? (<>
+                    <li>
+                        <h4 className={"subheader text-center mt-3"}>
+                            <Icon color={"#ffffff"} icon="alert" />
+                            <span className={"ml-2"}>New messages</span>
+                        </h4>
+                    </li>
+                    {newMsg.map((msg) => (
 
                         <li onClick={() => setActive(msg._id)}
                             key={msg._id}
@@ -63,8 +53,4 @@ const MessageList = ({chat, notifications, onChangeData}) => {
 };
 
 
-const mapStateToProps = (state) => ({
-    notifications: state.notifications.notifications,
-});
-
-export default connect(mapStateToProps)(MessageList);
+export default MessageList

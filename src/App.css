@@ -214,6 +214,10 @@ input, select, textarea {
     top: -35px;
 }
 
+.round-button svg {
+    margin-top: -0.2rem;
+}
+
 .custom-button.round-button.additional-button {
     background: #7fcfff;
     border: #ffffff solid 3px;

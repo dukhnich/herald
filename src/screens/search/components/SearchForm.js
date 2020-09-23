@@ -1,6 +1,7 @@
 import React from "react";
 import InputGroup from "../../../shared/components/form/InputGroup";
 import FormFooter from "../../../shared/components/form/FormFooter";
+import Icon from "../../../shared/icon";
 
 
 const SearchForm = ({onSearch, onCheck, isSearchChat}) => {
@@ -40,7 +41,7 @@ const SearchForm = ({onSearch, onCheck, isSearchChat}) => {
                 aria-readonly={"search"}
                 type ="submit"
                 className={"custom-button round-button ml-3"}>
-                >
+                <Icon icon="search" />
             </button>
         </div>
         <FormFooter>

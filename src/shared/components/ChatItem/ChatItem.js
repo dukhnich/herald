@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Avatar from "../Avatar/Avatar";
 import {gql} from "graphql-request";
-import API from "../../../API";
 import {connect} from "react-redux";
 import RoundButton from "./RoundButton";
 
