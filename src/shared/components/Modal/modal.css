@@ -19,6 +19,27 @@
     background-color: #000000;
     opacity: 80%;
 }
+
+.notification-modal {
+    position: absolute;
+    font-size: 1rem;
+    width: 150px;
+    bottom: 0;
+    right: 0;
+    transform: translateY(100%);
+    z-index: 99;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+.notification-modal a {
+    color: #000000;
+}
+
+.notification-modal a:hover {
+    color: #ffbdb8;
+}
+
+
+
 /*.my-modal:after {*/
 /*    content: "";*/
 /*    display: block;*/

@@ -63,6 +63,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
             .then(r => {
                 setStatus("resolved")
                 setChat(r.ChatFindOne);
+                dispatch(removeNotifications(id));
                 setNewMessages([]);
             })
             .catch(error => {
@@ -77,31 +78,29 @@ const Chat = ({notifications, dispatch, currentUser}) => {
         },
         [])
 
-    const deleteNotification = (notes) => {
-        if (notes.length) {
-            setTimeoutId((prev) => {
-                if (prev) {
-                    clearTimeout(prev)
-                }
-                return setTimeout(() => {
-                        console.log("start remove", newMessages);
-                        dispatch(removeNotifications(notes));
-                        loadChat();
-                    },
-                    5000)
-            })
+    const deleteNotification = () => {
+        setTimeoutId((prev) => {
+            if (prev) {
+                clearTimeout(prev)
+            }
+            return setTimeout(() => {
+                    // console.log("start remove");
+                    loadChat();
+                },
+                5000)
+        })
 
-            return () => clearTimeout(timeoutId)
-        }
+        return () => clearTimeout(timeoutId)
     }
 
     React.useEffect( ()=>{
-        const thisChatNotifications = chat._id ? notifications.filter(msg => msg.chat._id === chat._id) : [];
+        const thisChatNotifications = notifications.reduce((prev, chat) => 
+            chat._id === id ? chat.notifications : prev, 
+            []);
 
         if (thisChatNotifications.length) {
             const myNewMsg = thisChatNotifications.filter(msg => msg.owner._id === currentUser._id);
             if (myNewMsg.length) {
-                dispatch(removeNotifications(thisChatNotifications));
                 loadChat();
             }
             else {
@@ -112,7 +111,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
     React.useEffect( ()=>{
         if (newMessages.length) {
-            deleteNotification(newMessages)
+            deleteNotification()
         }
     },[newMessages])
 
@@ -134,7 +133,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
-    notifications: state.notifications.notifications,
+    notifications: state.notifications.chats,
 });
 
 export default connect(mapStateToProps)(Chat);

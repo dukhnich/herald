@@ -7,7 +7,6 @@ import {socket} from "../../API";
 import {getNotifications} from "../../services/notifications";
 
 const ProtectedRoute = ({ children, redirectTo, dispatch, currentUserChats, currentUser, isAuth, ...rest }) => {
-    // console.log("isAuth", isAuth, currentUser);
     React.useEffect(() => {
             if (!currentUser.login) {
                 dispatch(loadUser(currentUser._id));

@@ -1,5 +1,5 @@
 const initialState = {
-    notifications: [],
+    chats: [],
     status: "idle",
 };
 
@@ -11,20 +11,35 @@ const notificationsReducer = (state = initialState, action) => {
                 status: "pending"
             };
         case "notifications/add/resolved":
+            const chats = [...state.chats]
+            const isNewChat = chats.reduce((prev, current) => {
+                    if (current._id === action.payload.chat._id) {
+                        current.notifications.push(action.payload);
+                        console.log("current")
+                        return false
+                    }
+                    return prev
+                }
+                , true)
+            if (isNewChat) chats.push(
+                {
+                    _id: action.payload.chat._id,
+                    title: action.payload.chat.title,
+                    notifications: [action.payload]
+                }
+            )
+            console.log("chats", chats)
+
             return {
                 ...state,
-                notifications:
-                    [...state.notifications, action.payload],
+                chats: chats,
                 status: "resolved"
             };
         case "notifications/remove/resolved":
             return {
                 ...state,
-                notifications:
-                    state.notifications.filter(note => {
-                        const isInRemovedArr = !!(action.payload.filter(msg => msg._id === note._id).length);
-                        return !isInRemovedArr
-                    }),
+                chats:
+                    state.chats.filter(chat => chat._id !== action.payload),
                 status: "resolved"
             };
         case "notifications/rejected":

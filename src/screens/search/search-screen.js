@@ -77,7 +77,7 @@ const Search = () => {
                 {status === "pending" ? <Spinner /> : null}
                     {Array.isArray(result) ?
                         <div className={"black-footer pt-2"}>
-                            <div className={"container-small mt-5"}>
+                            <div className={"container-small mt-4"}>
                                 {result.length === 0 ? (
                                     <h5 className={"subheader"}>No Data</h5>
                                 ) : (

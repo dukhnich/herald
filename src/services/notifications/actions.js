@@ -29,12 +29,15 @@ export const getNotifications = (notification) => async (dispatch, _, api) => {
         const {
             UserFindOne: user
         } = data;
+
+        const updatedNote = {
+            ...notification,
+            owner: {...notification.owner, ...user}
+        }
+
         dispatch({
             type: "notifications/add/resolved",
-            payload: {
-                ...notification,
-                owner: {...notification.owner, ...user}
-            }
+            payload: updatedNote
         })
     } catch (error) {
         console.log(error)
@@ -42,14 +45,14 @@ export const getNotifications = (notification) => async (dispatch, _, api) => {
     }
 };
 
-export const removeNotifications = (notifications) => async (dispatch, _, api) => {
-    console.log(notifications)
+export const removeNotifications = (chatID) => async (dispatch, _, api) => {
+    console.log(chatID)
 
     try {
         dispatch({ type: "notifications/pending" });
         dispatch({
             type: "notifications/remove/resolved",
-            payload: notifications
+            payload: chatID
         })
     } catch (error) {
         console.log(error)

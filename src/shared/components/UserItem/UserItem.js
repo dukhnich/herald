@@ -1,16 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Avatar from "../Avatar/Avatar";
-import {gql} from "graphql-request";
-import API from "../../../API";
 import {connect} from "react-redux";
 import Modal from "../Modal/Modal";
 import SelectChatForm from "./SelectChatForm";
 
 
 const UserItem = ({user, isActive, currentUser}) => {
-    const { nick, _id, chats } = user;
+    const { nick, chats } = user;
     const [openMenu,setOpen] = React.useState(false)
 
     const changeOpen = () => {
@@ -20,26 +17,14 @@ const UserItem = ({user, isActive, currentUser}) => {
     const addToChat = (e) => {
         e.preventDefault();
         changeOpen();
-        // const chats = currentUser.chats ? [...currentUser.chats, {_id: _id}] : [{_id: _id}]
-        // const data = {"_id": currentUser._id, "chats": chats}
-        //
-        // members.push({"_id": currentUser._id})
-
-        // console.log("I ", currentUser._id, currentUser.chats, "chat ", _id)
-        // mutateUser({"_id": currentUser._id, "chats": chats})
     }
 
     return (
         <>
             <Avatar data={user} isBig={false} isUser={true}/>
-            {/*<Link*/}
-            {/*    to={`/users/${_id}`}*/}
-            {/*    className={"flex-grow-1 ml-3"}*/}
-            {/*>*/}
-                <div className={"flex-grow-1 ml-3"}>
-                    {nick}
-                </div>
-            {/*</Link>*/}
+            <div className={"flex-grow-1 ml-3"}>
+                {nick}
+            </div>
             {isActive ?
                 <button
                     onClick={addToChat}

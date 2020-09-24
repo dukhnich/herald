@@ -78,7 +78,9 @@ img {
 
 .container-small {
   width: 100%;
-  max-width: 300px;
+  max-width: 360px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin: 0 auto;
   position: relative;
 }
@@ -107,6 +109,18 @@ img {
     transform: translateY(-230px);
 }
 
+.rose-circle {
+    background: #ffbdb8;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1em;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 0.3rem;
+    text-align: center;
+
+}
 
 /*forms*/
 form {
@@ -274,6 +288,10 @@ input, select, textarea {
 
 .rose-text {
     color: #ffbdb8;
+}
+
+.black-text {
+    color: #000000;
 }
 
 .black-footer {

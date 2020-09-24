@@ -4,11 +4,6 @@ import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
 const Modal = ({ children, open, container, className }) => {
-    // const onClick = (e) => {
-    //     e.preventDefault();
-    //     onClose()
-    // }
-    // console.log(open)
     if (open) {
         return ReactDOM.createPortal(
             <div className={className}>
@@ -28,7 +23,6 @@ Modal.defaultProps = {
 
 Modal.propTypes = {
     children: PropTypes.node.isRequired,
-    // onClose: PropTypes.func.isRequired,
     // container: PropTypes.node,
     className: PropTypes.string,
     open: PropTypes.bool

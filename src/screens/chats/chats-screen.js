@@ -31,12 +31,12 @@ const Chats = ({currentUser, statusUser, statusChats, dispatch, currentUserChats
                 {(statusUser === "pending" || statusChats === "pending") ? <Spinner /> : null}
                 {(statusUser === "resolved" || statusChats === "resolved") ?
                     <div className={"black-shadow"}>
-                        <div className={"container-small"}>
+                        <div className={"container"}>
                             {Array.isArray(currentUser.chats) ?
                                 (statusUser === "resolved" && currentUser.chats.length !== 0) ?
                                     (
                                         <>
-                                            <h5 className={"subheader"}>Member of chats:</h5>
+                                            <h5 className={"subheader mb-4"}>Member of chats:</h5>
                                             <List items={currentUser.chats} />
                                         </>
                                     )
@@ -46,7 +46,7 @@ const Chats = ({currentUser, statusUser, statusChats, dispatch, currentUserChats
                             {(statusChats === "resolved" && currentUserChats.length !== 0) ?
                                 (
                                     <>
-                                        <h5 className={"subheader mt-5"}>Owner of chats:</h5>
+                                        <h5 className={"subheader mt-5 mb-4"}>Owner of chats:</h5>
                                         <List items={currentUserChats} />
                                     </>
                                 )
