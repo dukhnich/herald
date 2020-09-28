@@ -8,6 +8,7 @@ import MessageList from "./components/MessageList";
 import {connect} from "react-redux";
 import {removeNotifications} from "../../services/notifications";
 import ChatFooter from "./components/ChatFooter";
+import ChatSettingsButton from "./components/ChatSettingsButton";
 
 const loadChatQuery = gql`
   query chatFind($query: String) {
@@ -52,6 +53,11 @@ const Chat = ({notifications, dispatch, currentUser}) => {
     const [status, setStatus] = React.useState("pending")
     const [newMessages, setNewMessages] = React.useState([]);
     const [timeoutId, setTimeoutId] = React.useState(null);
+    const[needLoad, setNeedLoad] = React.useState(true)
+
+    const onChangeData = () => {
+        setNeedLoad (true)
+    }
 
     const loadChat = () => {
         const values = {
@@ -73,18 +79,12 @@ const Chat = ({notifications, dispatch, currentUser}) => {
             );
     }
 
-    React.useEffect(() => {
-            loadChat()
-        },
-        [])
-
     const deleteNotification = () => {
         setTimeoutId((prev) => {
             if (prev) {
                 clearTimeout(prev)
             }
             return setTimeout(() => {
-                    // console.log("start remove");
                     loadChat();
                 },
                 5000)
@@ -92,6 +92,14 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
         return () => clearTimeout(timeoutId)
     }
+
+    React.useEffect( ()=>{
+            if (needLoad) {
+                loadChat()
+                setNeedLoad(false)
+            }
+        },
+        [needLoad])
 
     React.useEffect( ()=>{
         const thisChatNotifications = notifications.reduce((prev, chat) => 
@@ -117,7 +125,13 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
     return (
         <div className={"vh-100 my-wrapper "}>
-            <NavBar text = {chat.title ? chat.title : "Chat"}/>
+            <NavBar text = {chat.title ? chat.title : "Chat"} isAdditionalButton={true}>
+                {chat._id ? (
+                    <ChatSettingsButton chat = {chat} onChangeData = {onChangeData}/>
+                )
+                    : null
+                }
+            </NavBar>
             <main className={"p-4"}>
                 {status === "pending" ? <Spinner /> : null}
                 {status === "resolved" && chat.messages ? (

@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+import {loadChats} from "../ownersChats";
 
 const loadUserQuery = gql`
   query userFind($query: String) {
@@ -40,6 +41,7 @@ export const loadUser = (id) => async (dispatch, _, api) => {
             UserFindOne: user
         } = data;
         // console.log(user)
+
         dispatch({ type: "loadUser/resolved", payload: user })
     } catch (error) {
         console.log(error)

@@ -1,11 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./navigation.css"
-import {string} from "prop-types";
+import {string, bool} from "prop-types";
 import {connect} from "react-redux";
 import NotificationButton from "./NotificationButton";
 
-const NavBar = ({text, isLoggedIn}) => {
+const NavBar = ({text, isLoggedIn, isAdditionalButton, children}) => {
     return (
         <nav className="navbar navigation-bar px-0">
             <div className={"container"}>
@@ -25,6 +25,7 @@ const NavBar = ({text, isLoggedIn}) => {
                 </li>
                 <li className="col-6 text-center flex-grow-1">
                     {text}
+                    {isAdditionalButton ? children : null}
                 </li>
                 {isLoggedIn ? (
                     <li className="col-3 d-flex justify-content-end">
@@ -40,7 +41,14 @@ const NavBar = ({text, isLoggedIn}) => {
 };
 
 NavBar.propTypes = {
-    text: string
+    text: string,
+    isAdditionalButton: bool,
+    isLoggedIn: bool.isRequired
+}
+
+NavBar.defaultProps = {
+    text: "",
+    isAdditionalButton: false,
 }
 
 const mapStateToProps = (state) => ({

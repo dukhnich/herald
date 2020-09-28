@@ -27,8 +27,8 @@ const RoundButton = ({user, chat, dispatch}) => {
                 onClick={deleteMember}
                 aria-label={"remove from the chat"}
                 type ="button"
-                className={"custom-button round-button additional-button"}>
-                —
+                className={"custom-button round-button additional-button blue-button"}>
+                –
             </button>
             <Link
                 to={`/chats/${_id}`}

@@ -28,7 +28,7 @@ const ChatItem = ({chat, isActive, currentUser, notifications}) => {
         <>
             <Avatar data={chat} isBig={false} isUser={false}/>
 
-            <div className={"flex-grow-1 ml-3"}>
+            <div className={"flex-grow-1 ml-3 text-break"}>
                 {title}
                 {isChatOfCurrentUser && countNotifications ? (
                         <span className={"ml-3"}>
@@ -41,7 +41,7 @@ const ChatItem = ({chat, isActive, currentUser, notifications}) => {
             </div>
             {isActive ?
                 <RoundButton chat ={chat} user = {currentUser}/>
-            : <div className={"brown-text small"}>Members: {members ? members.length : 0}</div>
+            : <div className={"brown-text small ml-2 text-right"}>Members: {members ? members.length : 0}</div>
             }
 
         </>

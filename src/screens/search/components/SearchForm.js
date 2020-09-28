@@ -38,7 +38,7 @@ const SearchForm = ({onSearch, onCheck, isSearchChat}) => {
 
             </InputGroup>
             <button
-                aria-readonly={"search"}
+                aria-label={"search"}
                 type ="submit"
                 className={"custom-button round-button ml-3"}>
                 <Icon icon="search" />

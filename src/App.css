@@ -82,7 +82,7 @@ img {
   padding-left: 15px;
   padding-right: 15px;
   margin: 0 auto;
-  position: relative;
+  /*position: relative;*/
 }
 
 .black-shadow{
@@ -127,6 +127,9 @@ form {
   position: relative;
   background-color: #ffffff;
   color: #ad807d;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: ;*/
 }
 
 label {
@@ -233,10 +236,13 @@ input, select, textarea {
 }
 
 .custom-button.round-button.additional-button {
+    right: 130px;
+}
+
+.custom-button.round-button.blue-button {
     background: #7fcfff;
     border: #ffffff solid 3px;
-    /*color: #ffffff;*/
-    right: 130px;
+
 }
 
 /*icons*/
@@ -298,6 +304,7 @@ input, select, textarea {
     background-color: #000000;
     position: relative;
     margin-top: 30px;
+    z-index: 1;
 }
 
 .black-link a {
@@ -326,10 +333,31 @@ ul.message-list {
 }
 
 li.active-item {
+    /*width: 100vw;*/
+    /*margin-left: calc(-50vw + 50%);*/
+    position: relative;
+        border: none;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    /*left: 0px;*/
+    /*right: 15px;*/
+    background-color: transparent;
+    color: white;
+    z-index: 1;
+}
+
+li.active-item:before {
+    content: '';
+    display: block;
+    position: absolute;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
+    left: 0;
+    right: 0;
+    height: 100%;
     background-color: #00a0ff;
-    color: white;
+    z-index: -1;
 }
 
 /*oval checkbox*/

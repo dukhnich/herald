@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Avatar from "../Avatar/Avatar";
 import {connect} from "react-redux";
+import UserButton from "./UserButton";
 import Modal from "../Modal/Modal";
 import SelectChatForm from "./SelectChatForm";
 
 
-const UserItem = ({user, isActive, currentUser}) => {
+const UserItem = ({user, isActive, currentChat}) => {
     const { nick, chats } = user;
     const [openMenu,setOpen] = React.useState(false)
 
@@ -14,36 +15,29 @@ const UserItem = ({user, isActive, currentUser}) => {
         setOpen((prev) => !prev)
     }
 
-    const addToChat = (e) => {
-        e.preventDefault();
-        changeOpen();
-    }
-
     return (
         <>
             <Avatar data={user} isBig={false} isUser={true}/>
-            <div className={"flex-grow-1 ml-3"}>
+            <div className={"flex-grow-1 ml-3 text-break"}>
                 {nick}
             </div>
             {isActive ?
-                <button
-                    onClick={addToChat}
-                    aria-label={"add to a chat"}
-                    type ="button"
-                    className={"custom-button round-button ml-3"}>
-                    +
-                </button>
-                : <div className={"brown-text small"}>Chats: {chats ? chats.length : 0}</div>
+                <UserButton chat ={currentChat} user = {user} changeOpen = {changeOpen}/>
+                : null
+            }
+
+            {!isActive && chats && chats.length ? (
+                <div className={"brown-text small ml-2 text-right"}>
+                    Chats: {chats.length}
+                </div>
+                ) : null
             }
             {openMenu ?
-                (
-                    <Modal open={openMenu}>
-                        <div className={"container-small"}>
-                            <SelectChatForm onClose={changeOpen} user = {user}/>
-                        </div>
-                    </Modal>
-                )
-                :null
+            <Modal open={openMenu}>
+                <div className={"container-small pt-5"}>
+                    <SelectChatForm onClose={changeOpen} user = {user}/>
+                </div>
+            </Modal> : null
             }
         </>
     );
@@ -60,6 +54,7 @@ UserItem.propTypes = {
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
+    currentUserChats: state.chats.currentUserChats,
 });
 
 export default connect(mapStateToProps)(UserItem);

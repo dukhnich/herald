@@ -46,8 +46,6 @@ export const getNotifications = (notification) => async (dispatch, _, api) => {
 };
 
 export const removeNotifications = (chatID) => async (dispatch, _, api) => {
-    console.log(chatID)
-
     try {
         dispatch({ type: "notifications/pending" });
         dispatch({

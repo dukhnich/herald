@@ -14,7 +14,7 @@ const addOrDeleteMemberMutation = gql`
 `;
 
 const addOrDeleteMember = (dispatch, userID, chat, add = true) => {
-    const {_id, members} = chat;
+    const {_id, members, owner} = chat;
     let newMembers = members.map(member => ({_id: member._id}));
     if (add) {
         newMembers.push({_id: userID});
@@ -29,9 +29,14 @@ const addOrDeleteMember = (dispatch, userID, chat, add = true) => {
         }
     )
         .then((r) => {
-            dispatch(loadUser(userID));
-            dispatch(loadChats(userID));
+            // console.log(r)
+            dispatch(loadUser(owner._id));
+            dispatch(loadChats(owner._id))
         })
+    //     .then(()=>
+    //     dispatch(loadChats(userID))
+    // )
+
         .catch(e => {
             console.log(e);
         });
