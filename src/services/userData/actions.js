@@ -1,5 +1,4 @@
 import { gql } from "graphql-request";
-import {loadChats} from "../ownersChats";
 
 const loadUserQuery = gql`
   query userFind($query: String) {

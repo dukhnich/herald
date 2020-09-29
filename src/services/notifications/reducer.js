@@ -15,7 +15,6 @@ const notificationsReducer = (state = initialState, action) => {
             const isNewChat = chats.reduce((prev, current) => {
                     if (current._id === action.payload.chat._id) {
                         current.notifications.push(action.payload);
-                        console.log("current")
                         return false
                     }
                     return prev

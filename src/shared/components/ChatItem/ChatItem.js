@@ -1,19 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Avatar from "../Avatar/Avatar";
-import {gql} from "graphql-request";
 import {connect} from "react-redux";
 import RoundButton from "./RoundButton";
 import Icon from "../../icon";
-
-const deleteChat = gql`
-  mutation chatDelete ($_id: ID!) {
-    ChatDelete(chat: {_id: $_id}) {
-      _id
-      title
-    }
-  }
-`;
 
 const ChatItem = ({chat, isActive, currentUser, notifications}) => {
     const { title, members, _id } = chat;

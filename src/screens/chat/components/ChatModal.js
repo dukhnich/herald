@@ -20,7 +20,7 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
                 onChangeData()
             }
         }
-        ,[currentUserChats])
+        ,[chat._id, chat.members.length, currentUserChats, onChangeData])
 
     if (status === "resolved") {
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "./Avatar/Avatar";
 import {connect} from "react-redux";
+import {ENDPOINT} from "../../API";
 
 const createTime = (timestamp) => {
     const time = new Date(isNaN(+timestamp) ? timestamp : +timestamp);
@@ -17,8 +18,7 @@ const createTime = (timestamp) => {
 };
 
 const MessageItem = ({message, isActive, currentUser}) => {
-    const { text, _id, createdAt, owner, } = message;
-
+    const { text, createdAt, owner, media} = message;
     const time = createTime(createdAt)
 
     return (
@@ -36,6 +36,15 @@ const MessageItem = ({message, isActive, currentUser}) => {
                     className={"shadow p-4 bg-white" + (currentUser._id === owner._id ? " order-first" : "")}
                 >
                     <pre className={"message-text"}>{text}</pre>
+                    {media && media.length ? media.map(issue => (
+                        <img
+                            key = {issue._id}
+                            className={"my-auto"}
+                            src={ENDPOINT+"/"+issue.url}
+                            alt={issue.text || ""}
+                        />
+                    ))
+                    : null}
                     <time
                         className={"d-block brown-text small mb-0" + (currentUser._id === owner._id ? " text-right" : "")}
                         dateTime={isNaN(+createdAt) ? createdAt : new Date (+createdAt).toISOString()}

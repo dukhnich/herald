@@ -1,36 +1,17 @@
 import React from "react";
-import {ENDPOINT} from "../../../API";
-import {connect} from "react-redux";
 import Avatar from "../../../shared/components/Avatar/Avatar";
+import uploadFile from "../../../shared/helpers/uploadFile";
 
 const ChatFormHeader = ({addAvatar}) => {
     const [avatar, setAvatar] = React.useState(null)
-    const form = React.useRef(null);
     async function uploadPhoto(event) {
         event.preventDefault();
-        //
         const file = event.target.files[0];
         if (file.type && file.type.includes("image")) {
-            const formData = new FormData();
-            const token = localStorage.getItem("token");
-            formData.append("media", file);
-            fetch(`${ENDPOINT}/upload`, {
-                method: "POST",
-                headers: token
-                    ? { Authorization: "Bearer " + token }
-                    : {},
-                body: formData
-            })
-                .then((res) => res.json())
-                .then((json) => {
-                        console.log("UPLOAD RESULT", json);
-                        setAvatar(json)
-                        addAvatar(json._id);
-                    }
-                );
+            const newAvatar = await uploadFile(file);
+            setAvatar(newAvatar)
+            addAvatar(newAvatar._id);
         }
-
-
     }
 
     return (

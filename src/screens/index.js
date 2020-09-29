@@ -6,7 +6,7 @@ import Menu from "./menu";
 import Search from "./search";
 import Chats from "./chats/chats-screen";
 import NavBar from "../shared/components/navigation/NavBar";
-import Chat from "./chat/Chat";
+import Chat from "./chat/сhat-screen";
 const NotFound = () => <NavBar text={"Page not found"}/>
 
 export const menuRoutes =   [

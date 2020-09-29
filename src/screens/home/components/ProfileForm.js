@@ -17,13 +17,13 @@ const addUserInfo = gql`
 `;
 
 
-const deleteUser = gql`
-  mutation userDelete ($_id: ID) {
-    UserDelete(user: {_id: $_id}) {
-      _id
-    }
-  }
-`;
+// const deleteUser = gql`
+//   mutation userDelete ($_id: ID) {
+//     UserDelete(user: {_id: $_id}) {
+//       _id
+//     }
+//   }
+// `;
 
 const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
     const [values, setValues] = React.useState(currentUser);
@@ -51,18 +51,18 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
         dispatch(logout());
     }
 
-    const deleteAccount = (e) => {
-        e.preventDefault();
-        API.request(deleteUser
-            , {_id: currentUser._id}
-        )
-            .then(() => {
-                dispatch(logout());
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
+    // const deleteAccount = (e) => {
+    //     e.preventDefault();
+    //     API.request(deleteUser
+    //         , {_id: currentUser._id}
+    //     )
+    //         .then(() => {
+    //             dispatch(logout());
+    //         })
+    //         .catch(e => {
+    //             console.log(e);
+    //         });
+    // }
 
     const onChange = (e) => {
         const target = e.target;
@@ -92,12 +92,12 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
                 className={"btn btn-sm btn-outline-primary mb-2"}>
                 Change nick
             </button>
-            <button
-                onClick={deleteAccount}
-                className={"btn btn-danger small mt-4"}
-            >
-                Delete account
-            </button>
+            {/*<button*/}
+            {/*    onClick={deleteAccount}*/}
+            {/*    className={"btn btn-danger small mt-4"}*/}
+            {/*>*/}
+            {/*    Delete account*/}
+            {/*</button>*/}
         </div>
         <FormFooter>
             <div>

@@ -1,7 +1,6 @@
 import React from "react";
 import API from "./../../API";
 import { gql } from "graphql-request";
-import { connect } from "react-redux";
 import Spinner from "../../shared/components/Spinner";
 import InputGroup from "../../shared/components/form/InputGroup";
 import FormFooter from "../../shared/components/form/FormFooter";

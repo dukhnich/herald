@@ -14,7 +14,7 @@ const Chats = ({currentUser, statusUser, statusChats, dispatch, currentUserChats
                 setNeedLoad(false)
             }
         },
-        [needLoad])
+        [currentUser._id, dispatch, needLoad])
 
     const onAddChat = () => {
         setNeedLoad (true)

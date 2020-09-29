@@ -13,7 +13,7 @@ const HomeScreen = ({currentUser, dispatch, status}) => {
                 setNeedLoad(false)
             }
         },
-        [needLoad])
+        [currentUser._id, dispatch, needLoad])
 
     const onChangeData = () => {
         setNeedLoad (true)

@@ -11,33 +11,56 @@ const loadAvatar = gql`
   }
 `;
 
+const loadMedia = gql`
+  query messageMedia($query: String) {
+    MediaFind(query: $query) {
+        _id
+        text
+        url
+        type    
+        messages {_id}
+    }    
+  }
+`;
+
+const loadMsg = gql`
+  query loadMsg($query: String) {
+    MessageFindOne(query: $query) {
+        _id
+        createdAt
+        owner {_id nick avatar {_id url}}
+        chat {_id}
+        text
+        media {_id url messages text {_id}}
+        replies {_id}
+        replyTo {_id}
+        forwarded {_id}
+        forwardWith {_id}
+    }    
+  }
+`;
+
+const queryValuesById = (id) => ({
+    query: JSON.stringify([
+        {
+            "_id": id
+        }
+    ])
+})
+
 export const getNotifications = (notification) => async (dispatch, _, api) => {
     try {
         dispatch({ type: "notifications/pending" });
-        const values = {
-            query: JSON.stringify([
-                {
-                    "_id": notification.owner._id
-                }
-            ])
-        }
-        const  data  = await api.request(loadAvatar, values);
+        const values = queryValuesById(notification._id);
+        const  data  = await api.request(loadMsg, values);
         if (data === null) {
             dispatch({ type: "notifications/add/rejected" });
         }
-
-        const {
-            UserFindOne: user
-        } = data;
-
-        const updatedNote = {
-            ...notification,
-            owner: {...notification.owner, ...user}
-        }
-
+        const {MessageFindOne: fullMsg} = data;
+        console.log(fullMsg)
         dispatch({
             type: "notifications/add/resolved",
-            payload: updatedNote
+            payload: fullMsg
         })
     } catch (error) {
         console.log(error)

@@ -34,7 +34,7 @@ const loadChatQuery = gql`
                 avatar {_id url}
             }
             text
-            media {url}
+            media {_id url}
             replies {_id}
             replyTo {_id}
             forwarded {_id}
@@ -115,7 +115,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
                 setNewMessages(thisChatNotifications);
             }
         }
-    },[notifications])
+    },[currentUser._id, id, notifications])
 
     React.useEffect( ()=>{
         if (newMessages.length) {

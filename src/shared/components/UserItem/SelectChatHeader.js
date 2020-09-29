@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "../../../shared/components/Avatar/Avatar";
 
 const SelectChatHeader = ({user}) => {
-    const {nick, avatar} = user;
+    const {nick} = user;
     return (
         <div className={"d-flex justify-content-between"}>
             <Avatar data={user} />

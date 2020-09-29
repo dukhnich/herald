@@ -1,1 +1,1 @@
-import {default} from "./Chat"
+import {default} from "./сhat-screen"

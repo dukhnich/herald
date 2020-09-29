@@ -6,9 +6,8 @@ import Icon from "../../icon";
 
 
 const RoundButton = ({user, chat, dispatch}) => {
-    const { _id, members, owner } = chat;
+    const { _id, owner } = chat;
     const isChatOfCurrentUser = !!(user.chats.filter(chat => chat._id === _id).length)
-
 
 
     const addMember = (e) => {

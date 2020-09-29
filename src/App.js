@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {connect, Provider} from "react-redux";
+import {Provider} from "react-redux";
 import routes from "./screens";
 import store from "./store/configure-store";
 import ProtectedRoute from "./shared/components/protected-route";

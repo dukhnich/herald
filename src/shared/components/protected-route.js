@@ -7,14 +7,18 @@ import {socket} from "../../API";
 import {getNotifications} from "../../services/notifications";
 
 const ProtectedRoute = ({ children, redirectTo, dispatch, currentUserChats, currentUser, isAuth, ...rest }) => {
+    const loadData = () => {
+        if (!currentUser.login) {
+            dispatch(loadUser(currentUser._id));
+        }
+        if (currentUserChats.length === 0) {
+            dispatch(loadChats(currentUser._id));
+        }
+        socket.on('msg', msg => dispatch(getNotifications(msg)));
+    }
+
     React.useEffect(() => {
-            if (!currentUser.login) {
-                dispatch(loadUser(currentUser._id));
-            }
-            if (currentUserChats.length === 0) {
-                dispatch(loadChats(currentUser._id));
-            }
-            socket.on('msg', msg => dispatch(getNotifications(msg)));
+           loadData()
         },
         [])
     return (
