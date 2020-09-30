@@ -27,7 +27,7 @@ const Search = () => {
 
     return (
         <>
-            <NavBar text = {"Search Chat"}/>
+            <NavBar text = {"Search"}/>
             <main>
                 <div className={"container-small"}>
                     <SearchForm

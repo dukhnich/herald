@@ -1,28 +1,5 @@
 import { gql } from "graphql-request";
 
-const loadAvatar = gql`
-  query userAvatar($query: String) {
-    UserFindOne(query: $query) {
-        avatar {
-            _id
-            url
-        }
-    }    
-  }
-`;
-
-const loadMedia = gql`
-  query messageMedia($query: String) {
-    MediaFind(query: $query) {
-        _id
-        text
-        url
-        type    
-        messages {_id}
-    }    
-  }
-`;
-
 const loadMsg = gql`
   query loadMsg($query: String) {
     MessageFindOne(query: $query) {
@@ -31,7 +8,7 @@ const loadMsg = gql`
         owner {_id nick avatar {_id url}}
         chat {_id}
         text
-        media {_id url messages text {_id}}
+        media {_id url messages{_id} text}
         replies {_id}
         replyTo {_id}
         forwarded {_id}

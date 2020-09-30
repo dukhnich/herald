@@ -1,7 +1,8 @@
 import React from "react";
 import Avatar from "./Avatar/Avatar";
 import {connect} from "react-redux";
-import {ENDPOINT} from "../../API";
+import MediaList from "../../screens/chat/components/MediaList";
+import Icon from "../icon";
 
 const createTime = (timestamp) => {
     const time = new Date(isNaN(+timestamp) ? timestamp : +timestamp);
@@ -20,7 +21,6 @@ const createTime = (timestamp) => {
 const MessageItem = ({message, isActive, currentUser}) => {
     const { text, createdAt, owner, media} = message;
     const time = createTime(createdAt)
-
     return (
         <>
             <h6
@@ -35,22 +35,38 @@ const MessageItem = ({message, isActive, currentUser}) => {
                 <div
                     className={"shadow p-4 bg-white" + (currentUser._id === owner._id ? " order-first" : "")}
                 >
-                    <pre className={"message-text"}>{text}</pre>
-                    {media && media.length ? media.map(issue => (
-                        <img
-                            key = {issue._id}
-                            className={"my-auto"}
-                            src={ENDPOINT+"/"+issue.url}
-                            alt={issue.text || ""}
-                        />
-                    ))
+                    {text ?
+                        <pre className={"message-text mb-3"}>{text}</pre>
                     : null}
-                    <time
-                        className={"d-block brown-text small mb-0" + (currentUser._id === owner._id ? " text-right" : "")}
-                        dateTime={isNaN(+createdAt) ? createdAt : new Date (+createdAt).toISOString()}
-                    >
-                        {time}
-                    </time>
+                    <MediaList media={media}/>
+                    <div className={"small brown-text align-items-center d-flex" + (currentUser._id === owner._id ? " justify-content-end" : "")}>
+                        <div className={"mr-3"}>
+                        <Icon
+                            icon="reply"
+                            color={"#00a0ff"}
+                            className={"mr-1"}
+                            size={"1.5em"}
+                        />
+                        Reply
+                        </div>
+                        <div className={"mr-3"}>
+                        <Icon
+                            icon="forward"
+                            color={"#00a0ff"}
+                            className={"mr-1"}
+                            size={"1.5em"}
+                        />
+                        Forward
+                        </div>
+                        <time
+                            className={"mb-0"}
+                            dateTime={isNaN(+createdAt) ? createdAt : new Date (+createdAt).toISOString()}
+                        >
+                            {time}
+                        </time>
+
+                    </div>
+
                 </div>
             </div>
         </>

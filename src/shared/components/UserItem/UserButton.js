@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import addOrDeleteMember from "../../helpers/addOrDeleteMembers";
 import AddButton from "./AddButton";
+import Icon from "../../icon";
 
 const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, dispatch}) => {
 
@@ -28,7 +29,10 @@ const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, disp
                         aria-label={"remove from the chat"}
                         type="button"
                         className={"custom-button round-button blue-button"}>
-                        –
+                        <Icon
+                            icon="minus"
+                            size={"0.8em"}
+                        />
                     </button>
                 )
             } else {
@@ -38,7 +42,10 @@ const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, disp
                         aria-label={"add to this chat"}
                         type="button"
                         className={"custom-button round-button"}>
-                        +
+                        <Icon
+                            icon="plus"
+                            size={"0.8em"}
+                        />
                     </button>
                 )
             }

@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "../../icon";
 
 const AddButton = ({changeOpen}) => {
 
@@ -13,7 +14,10 @@ const AddButton = ({changeOpen}) => {
                 aria-label={"add to a chat"}
                 type ="button"
                 className={"custom-button round-button"}>
-                +
+                <Icon
+                    icon="plus"
+                    size={"0.8em"}
+                />
             </button>
         </>
     )

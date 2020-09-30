@@ -70,7 +70,10 @@ const ChatSettings = ({chat, onClose, onChangeData}) => {
                     aria-label={"close"}
                     type ="button"
                     className={"custom-button round-button"}>
-                    &#215;
+                    <Icon
+                        icon="cross"
+                        size={"0.8em"}
+                    />
                 </button>
 
                 <div className={"form-body"}>

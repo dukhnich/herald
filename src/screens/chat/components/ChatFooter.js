@@ -1,92 +1,41 @@
 import React from "react";
 import Icon from "../../../shared/icon";
-import API from "../../../API";
-import {gql} from "graphql-request";
-import uploadFile from "../../../shared/helpers/uploadFile";
-
-const createMsg = gql`
-  mutation createMsg($text: String, $chat:ChatInput, $media: [MediaInput]) {
-    MessageUpsert(message: {text: $text, chat: $chat, media: $media}) {
-      _id
-    }
-  }
-`;
-
-const linkMediaWithMsg = gql`
-  mutation linkMediaWithMsg($_id: ID!, $messages: [MessageInput]) {
-    MediaUpsert(media: {_id: $_id, messages: $messages}) {
-      _id
-    }
-  }
-`;
+import SendBtn from "./SendBtn";
 
 const ChatFooter = ({chatID}) => {
     const [msg, setMsg] = React.useState("");
-    const [attach, setAttach] = React.useState(null);
+    const [attach, setAttach] = React.useState([]);
 
     const addAttach = (event) => {
-        const file = event.target.files[0];
-        setAttach (file)
+        const files = event.target.files;
+        // console.log(files)
+        setAttach (files)
     }
 
     const removeAttach = () => {
-        setAttach (null)
+        setAttach ([])
     }
-
 
     const onChange = (e) => {
         setMsg(e.target.value)
     };
 
-    const sendMsg = async (e) => {
-        e.preventDefault();
-        const values = {
-            text: msg,
-            chat: {_id: chatID}
-        };
-        let media;
-        if (attach) {
-            media = await uploadFile(attach);
-            values.media = [{
-                _id: media._id,
-            }]
-        }
-        console.log(media)
-        API.request(createMsg, values)
-            .then((r)=> {
-                    console.log(r)
-                    if (media) {
-                        const mediaValues = {
-                            _id: media._id,
-                            messages: [{_id: r.MessageUpsert._id}]
-                        };
-                        API.request(linkMediaWithMsg, mediaValues)
-                    }
-                }
-            )
-            .then((r)=> {
-                // console.log(r)
-
-                    setMsg("")
-                }
-            )
-            .catch(e => {
-                console.log(e);
-            });
-    };
+    const clearData = () => {
+        setMsg("")
+        removeAttach()
+    }
 
     return (
         <div className={"black-footer p-3 d-flex align-items-start justify-content-between"}>
-            <button
-                onClick={sendMsg}
-                aria-label={"send message"}
-                type ="button"
-                className={"custom-button round-button"}>
-                <Icon icon="send" />
-            </button>
+            <SendBtn
+                chatID={chatID}
+                attach={attach}
+                message={msg}
+                onSend={clearData}
+            />
             <label className={"pt-2"}>
                 <Icon
-                    color={attach ? "#ffbdb8" : "#ffffff"}
+                    color={attach.length ? "#ffbdb8" : "#ffffff"}
                     icon="camera"
                     size={"1.3rem"}
                 />
@@ -94,10 +43,11 @@ const ChatFooter = ({chatID}) => {
                     onInput={addAttach}
                     className={"custom-file-input"}
                     type={"file"}
+                    multiple={true}
                     name={"media"}
                 />
             </label>
-            {attach ?
+            {attach.length ?
                 <button
                     onClick={removeAttach}
                     type={"button"}

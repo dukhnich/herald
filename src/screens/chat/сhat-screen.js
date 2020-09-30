@@ -34,7 +34,7 @@ const loadChatQuery = gql`
                 avatar {_id url}
             }
             text
-            media {_id url}
+            media {_id url originalFileName type text}
             replies {_id}
             replyTo {_id}
             forwarded {_id}

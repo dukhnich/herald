@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import List from "../../../shared/components/List";
 import ChatSettings from "./ChatSettings";
 import Spinner from "../../../shared/components/Spinner";
+import Icon from "../../../shared/icon";
 
 const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChangeData}) => {
     const isOwner = currentUser._id === chat.owner._id;
@@ -38,7 +39,10 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
                         aria-label={"close"}
                         type="button"
                         className={"custom-button round-button mt-5"}>
-                        &#215;
+                        <Icon
+                            icon="cross"
+                            size={"0.8em"}
+                        />
                     </button>
                 }
                 <div className={"container"}>

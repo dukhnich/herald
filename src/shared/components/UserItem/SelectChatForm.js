@@ -4,6 +4,7 @@ import InputGroup from "../form/InputGroup";
 import FormFooter from "../form/FormFooter";
 import SelectChatHeader from "./SelectChatHeader";
 import addOrDeleteMember from "../../helpers/addOrDeleteMembers";
+import Icon from "../../icon";
 
 
 const SelectChatForm = ({onClose, currentUserChats, dispatch, user}) => {
@@ -37,7 +38,10 @@ const SelectChatForm = ({onClose, currentUserChats, dispatch, user}) => {
                 aria-label={"close"}
                 type ="button"
                 className={"custom-button round-button ml-3"}>
-                &#215;
+                <Icon
+                    icon="cross"
+                    size={"0.8em"}
+                />
             </button>
             <SelectChatHeader user = {user}/>
             <div className={"form-body"}>

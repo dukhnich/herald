@@ -27,7 +27,10 @@ const RoundButton = ({user, chat, dispatch}) => {
                 aria-label={"remove from the chat"}
                 type ="button"
                 className={"custom-button round-button additional-button blue-button"}>
-                –
+                <Icon
+                    icon="minus"
+                    size={"0.8em"}
+                />
             </button>
             <Link
                 to={`/chats/${_id}`}
@@ -44,7 +47,10 @@ const RoundButton = ({user, chat, dispatch}) => {
                 aria-label={"add to the chat"}
                 type ="button"
                 className={"custom-button round-button"}>
-                +
+                <Icon
+                    icon="plus"
+                    size={"0.8em"}
+                />
             </button>
         )
 

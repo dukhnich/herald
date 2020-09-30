@@ -1,65 +1,118 @@
 {
   "selection": [
     {
-      "order": 62,
+      "order": 0,
+      "name": "tick"
+    },
+    {
+      "order": 0,
+      "name": "forward"
+    },
+    {
+      "order": 0,
+      "name": "reply"
+    },
+    {
+      "order": 0,
+      "name": "download"
+    },
+    {
+      "order": 0,
       "name": "сlock"
     },
     {
-      "order": 61,
+      "order": 0,
       "name": "more"
     },
     {
-      "order": 60,
+      "order": 0,
       "name": "settings"
     },
     {
-      "order": 59,
+      "order": 0,
       "name": "camera"
     },
     {
-      "order": 58,
+      "order": 0,
       "name": "search",
       "prevSize": 32
     },
     {
-      "order": 57,
+      "order": 0,
       "name": "alert",
       "prevSize": 32
     },
     {
-      "order": 56,
+      "order": 0,
       "name": "send",
       "prevSize": 32
     },
     {
-      "order": 55,
+      "order": 0,
       "name": "arrow",
       "prevSize": 32
     },
     {
-      "order": 65,
+      "order": 0,
       "name": "plus"
     },
     {
-      "order": 67,
+      "order": 0,
       "name": "minus"
     },
     {
-      "order": 66,
+      "order": 0,
       "name": "cross"
     }
   ],
   "metadata": {
     "name": "Chat",
     "importSize": {
-      "width": 512,
-      "height": 512
+      "width": 34,
+      "height": 26
     },
-    "iconsHash": 329952064
+    "iconsHash": 493049803
   },
   "height": 1024,
   "prevSize": 32,
   "icons": [
+    {
+      "paths": [
+        "M0 551.385l472.615 472.615 866.462-866.462-157.538-157.538-708.923 708.923-315.077-315.077z"
+      ],
+      "width": 1339,
+      "grid": 0,
+      "tags": [
+        "tick"
+      ]
+    },
+    {
+      "paths": [
+        "M262.14 0c-113.728 206.032-132.89 520.304 313.86 509.824v-253.824l384 384-384 384v-248.372c-534.96 13.942-594.572-472.214-313.86-775.628z"
+      ],
+      "grid": 0,
+      "tags": [
+        "forward"
+      ]
+    },
+    {
+      "paths": [
+        "M448 775.628v248.372l-384-384 384-384v253.824c446.75 10.48 427.588-303.792 313.862-509.824 280.71 303.414 221.1 789.57-313.862 775.628z"
+      ],
+      "grid": 0,
+      "tags": [
+        "reply"
+      ]
+    },
+    {
+      "paths": [
+        "M736 448l-256 256-256-256h160v-384h192v384zM480 704h-480v256h960v-256h-480zM896 832h-128v-64h128v64z"
+      ],
+      "grid": 0,
+      "tags": [
+        "download"
+      ]
+    },
     {
       "paths": [
         "M512 0c282.77 0 512 229.23 512 512s-229.23 512-512 512c-282.77 0-512-229.23-512-512v0c0-282.77 229.23-512 512-512v0zM421.647 271.059v331.294h331.294v-120.471h-210.824v-210.824h-120.471z"
