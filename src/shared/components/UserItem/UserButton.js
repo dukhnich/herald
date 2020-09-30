@@ -54,6 +54,7 @@ const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, disp
     else {
         if (currentUserChats.length)
             return (<AddButton changeOpen={changeOpen}/>)
+        else return null
     }
 }
 
