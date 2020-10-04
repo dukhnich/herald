@@ -7,7 +7,10 @@ const ReplyButton = ({msg, currentChat, dispatch}) => {
     const onReply = () => {
         dispatch({
             type: "newMessage/changeInfo",
-            payload:{replyTo: msg, chat: {_id: currentChat._id}}
+            payload:{
+                replyTo: msg,
+                chat: {_id: currentChat._id}
+            }
         })
     }
     return (

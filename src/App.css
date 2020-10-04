@@ -401,10 +401,12 @@ label.toggler.toggler-checked::before {
 }
 
 .replyed-message {
-    background-color: #b1e2ff;
     max-height: 50px;
     max-width: 33%;
+}
 
+.light-blue-bg {
+    background-color: #b1e2ff;
 }
 
 .message-text {

@@ -3,9 +3,11 @@ import Avatar from "../../../../shared/components/Avatar/Avatar";
 import {connect} from "react-redux";
 import MediaList from "./MediaList";
 import MessageFooter from "./MessageFooter";
+import ReplyMsg from "../ReplyMsg";
 
 const MessageItem = ({message, currentUser}) => {
-    const { text, owner, media} = message;
+    const { text, owner, media, replyTo} = message;
+    // replyTo && console.log(replyTo)
     return (
         <li className={"py-3"}>
             <h6
@@ -18,8 +20,9 @@ const MessageItem = ({message, currentUser}) => {
             >
                 <Avatar data={owner} isBig={false} isUser={true}/>
                 <div
-                    className={"shadow p-4 bg-white" + (currentUser._id === owner._id ? " order-first" : "")}
+                    className={"shadow p-4 bg-white message-text" + (currentUser._id === owner._id ? " order-first" : "")}
                 >
+                    {replyTo && Object.keys(replyTo).length ? (<ReplyMsg msg={replyTo}/>) : null}
                     {text ?
                         <pre className={"message-text mb-3 text-break"}>{text}</pre>
                         : null

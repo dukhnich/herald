@@ -11,8 +11,16 @@ const createMsg = gql`
 `;
 
 const linkMediaWithMsg = gql`
-  mutation linkMediaWithMsg($_id: ID!, $messages: [MessageInput]) {
+  mutation linkWithMsg($_id: ID!, $messages: [MessageInput]) {
     MediaUpsert(media: {_id: $_id, messages: $messages}) {
+      _id
+    }
+  }
+`;
+
+const linkWithMsg = gql`
+  mutation linkWithMsg($_id: ID!, $text: String, $chat:ChatInput!, $media: [MediaInput], $replyTo: MessageInput, $replies: [MessageInput]) {
+    MessageUpsert(message: {_id: $_id, text: $text, chat: $chat, media: $media, replyTo: $replyTo, replies: $replies}) {
       _id
     }
   }
@@ -20,7 +28,7 @@ const linkMediaWithMsg = gql`
 
 export const sendMessage = (message) => async (dispatch, _, api) => {
     dispatch({ type: "newMessage/pending" });
-    const {attach, text, forwarded} = message
+    const {attach, text, forwarded, replyTo, chat} = message
     try {
         if (!((attach && attach.length) || text || forwarded)) {
             dispatch({ type: "newMessage/rejected" });
@@ -38,6 +46,7 @@ export const sendMessage = (message) => async (dispatch, _, api) => {
         if (media.length) {
             values.media = media
         }
+        values.replyTo && delete values.replyTo
         const msg = await API.request(createMsg, values)
         if (media.length) {
             for (const issue of media) {
@@ -47,6 +56,14 @@ export const sendMessage = (message) => async (dispatch, _, api) => {
                 };
                 API.request(linkMediaWithMsg, mediaValues)
             }
+        }
+        if (replyTo && Object.keys(replyTo).length) {
+            const replyToValues = {
+                _id: msg.MessageUpsert._id,
+                chat: {_id: chat._id},
+                replyTo: {_id: replyTo._id}
+            };
+            await API.request(linkWithMsg, replyToValues);
         }
         dispatch({ type: "newMessage/send/resolved", payload: message });
     }

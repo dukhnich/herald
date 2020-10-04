@@ -19,6 +19,7 @@ const loadChatQuery = gql`
         messages {
             _id
             createdAt
+            chat {_id}
             owner {
                 _id 
                 nick
