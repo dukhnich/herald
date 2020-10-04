@@ -7,7 +7,7 @@ import Modal from "../Modal/Modal";
 import SelectChatForm from "./SelectChatForm";
 
 
-const UserItem = ({user, isActive, currentChat}) => {
+const UserItem = ({user, isActive}) => {
     const { nick, chats } = user;
     const [openMenu,setOpen] = React.useState(false)
 
@@ -22,7 +22,7 @@ const UserItem = ({user, isActive, currentChat}) => {
                 {nick}
             </div>
             {isActive ?
-                <UserButton chat ={currentChat} user = {user} changeOpen = {changeOpen}/>
+                <UserButton user = {user} changeOpen = {changeOpen}/>
                 : null
             }
 

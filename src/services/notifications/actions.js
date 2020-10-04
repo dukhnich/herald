@@ -6,11 +6,11 @@ const loadMsg = gql`
         _id
         createdAt
         owner {_id nick avatar {_id url}}
-        chat {_id}
+        chat {_id title}
         text
-        media {_id url messages{_id} text}
+        media {_id url originalFileName type text}
         replies {_id}
-        replyTo {_id}
+        replyTo {_id owner {nick} text media {type}}
         forwarded {_id}
         forwardWith {_id}
     }    

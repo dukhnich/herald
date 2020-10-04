@@ -1,56 +1,15 @@
 import React from "react";
 import {useParams} from "react-router-dom";
-import {gql} from "graphql-request";
-import client from "../../API";
 import NavBar from "../../shared/components/navigation/NavBar";
 import Spinner from "../../shared/components/Spinner";
-import MessageList from "./components/MessageList";
+import MessageList from "./components/messages/MessageList";
 import {connect} from "react-redux";
-import {removeNotifications} from "../../services/notifications";
-import ChatFooter from "./components/ChatFooter";
-import ChatSettingsButton from "./components/ChatSettingsButton";
+import ChatFooter from "./components/footer/ChatFooter";
+import ChatSettingsButton from "./components/settings/ChatSettingsButton";
+import {loadChat} from "../../services/currentChat";
 
-const loadChatQuery = gql`
-  query chatFind($query: String) {
-    ChatFindOne(query: $query) {
-        _id
-        title
-        members {
-            _id
-            nick
-            avatar {url}
-        }
-        owner {
-            _id 
-            nick
-            avatar {_id url}
-        }
-        messages {
-            _id
-            createdAt
-            owner {
-                _id 
-                nick
-                avatar {_id url}
-            }
-            text
-            media {_id url originalFileName type text}
-            replies {_id}
-            replyTo {_id}
-            forwarded {_id}
-            forwardWith {_id}
-        }
-        avatar {
-            url
-        }
-    }    
-  }
-`;
-
-const Chat = ({notifications, dispatch, currentUser}) => {
+const Chat = ({notifications, dispatch, currentUser, currentChat, status}) => {
     const { id } = useParams();
-    const [chat, setChat] = React.useState({})
-    const [status, setStatus] = React.useState("pending")
     const [newMessages, setNewMessages] = React.useState([]);
     const [timeoutId, setTimeoutId] = React.useState(null);
     const[needLoad, setNeedLoad] = React.useState(true)
@@ -59,24 +18,9 @@ const Chat = ({notifications, dispatch, currentUser}) => {
         setNeedLoad (true)
     }
 
-    const loadChat = () => {
-        const values = {
-            query: JSON.stringify([
-                {"_id": id}
-            ])
-        }
-        client.request(loadChatQuery, values)
-            .then(r => {
-                setStatus("resolved")
-                setChat(r.ChatFindOne);
-                dispatch(removeNotifications(id));
-                setNewMessages([]);
-            })
-            .catch(error => {
-                    setStatus("rejected")
-                    console.log(error)
-                }
-            );
+    const loadCurrentChat = () => {
+        dispatch(loadChat(id));
+        setNewMessages([])
     }
 
     const deleteNotification = () => {
@@ -85,17 +29,16 @@ const Chat = ({notifications, dispatch, currentUser}) => {
                 clearTimeout(prev)
             }
             return setTimeout(() => {
-                    loadChat();
+                    loadCurrentChat();
                 },
                 5000)
         })
-
         return () => clearTimeout(timeoutId)
     }
 
     React.useEffect( ()=>{
             if (needLoad) {
-                loadChat()
+                loadCurrentChat()
                 setNeedLoad(false)
             }
         },
@@ -109,7 +52,7 @@ const Chat = ({notifications, dispatch, currentUser}) => {
         if (thisChatNotifications.length) {
             const myNewMsg = thisChatNotifications.filter(msg => msg.owner._id === currentUser._id);
             if (myNewMsg.length) {
-                loadChat();
+                loadCurrentChat();
             }
             else {
                 setNewMessages(thisChatNotifications);
@@ -125,17 +68,17 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
     return (
         <div className={"vh-100 my-wrapper "}>
-            <NavBar text = {chat.title ? chat.title : "Chat"} isAdditionalButton={true}>
-                {chat._id ? (
-                    <ChatSettingsButton chat = {chat} onChangeData = {onChangeData}/>
+            <NavBar text = {currentChat.title ? currentChat.title : "Chat"} isAdditionalButton={true}>
+                {currentChat._id ? (
+                    <ChatSettingsButton onChangeData = {onChangeData}/>
                 )
                     : null
                 }
             </NavBar>
-            <main className={"p-4"}>
+            <main className={"px-4"}>
                 {status === "pending" ? <Spinner /> : null}
-                {status === "resolved" && chat.messages ? (
-                        <MessageList messages={chat.messages} newMsg = {newMessages}/>
+                {status === "resolved" && currentChat.messages ? (
+                        <MessageList messages={currentChat.messages} newMsg = {newMessages}/>
                     )
                     : null
                 }
@@ -147,6 +90,8 @@ const Chat = ({notifications, dispatch, currentUser}) => {
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
+    currentChat: state.currentChat.currentChat,
+    status: state.currentChat.status,
     notifications: state.notifications.chats,
 });
 

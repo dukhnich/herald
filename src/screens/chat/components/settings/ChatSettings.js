@@ -1,12 +1,13 @@
 import React from "react";
-import API from "../../../API";
-import InputGroup from "../../../shared/components/form/InputGroup";
-import FormFooter from "../../../shared/components/form/FormFooter";
+import API from "../../../../API";
+import InputGroup from "../../../../shared/components/form/InputGroup";
+import FormFooter from "../../../../shared/components/form/FormFooter";
 import {gql} from "graphql-request";
-import Icon from "../../../shared/icon";
-import {search} from "../../../shared/helpers/search";
-import Spinner from "../../../shared/components/Spinner";
-import List from "../../../shared/components/List";
+import Icon from "../../../../shared/icon";
+import {search} from "../../../../shared/helpers/search";
+import Spinner from "../../../../shared/components/Spinner";
+import List from "../../../../shared/components/List";
+import {connect} from "react-redux";
 
 const changeChatTitle = gql`
   mutation changeChat($_id: ID!, $title: String) {
@@ -16,8 +17,8 @@ const changeChatTitle = gql`
   }
 `;
 
-const ChatSettings = ({chat, onClose, onChangeData}) => {
-    const [values, setValues] = React.useState(chat);
+const ChatSettings = ({currentChat, onClose, onChangeData}) => {
+    const [values, setValues] = React.useState(currentChat);
     const [result, setResult] = React.useState(null);
     const [status, setStatus] = React.useState(null);
 
@@ -77,13 +78,13 @@ const ChatSettings = ({chat, onClose, onChangeData}) => {
                 </button>
 
                 <div className={"form-body"}>
-                    <h1 className={"medium-header mb-3"}>{chat.title}</h1>
+                    <h1 className={"medium-header mb-3"}>{currentChat.title}</h1>
                     <InputGroup label={"Title"}>
                         <input
                             type="text"
                             placeholder={"New title"}
                             name="title"
-                            defaultValue={chat.title}
+                            defaultValue={currentChat.title}
                             onChange={onChange}
                         />
                     </InputGroup>
@@ -117,7 +118,7 @@ const ChatSettings = ({chat, onClose, onChangeData}) => {
                                 result.length === 0 ? (
                                     <h5 className={"subheader"}>No Data</h5>
                                 ) : (
-                                    <List items={result} currentChat={chat}/>
+                                    <List items={result}/>
                                 )
                             : null}
                 </FormFooter>
@@ -126,4 +127,9 @@ const ChatSettings = ({chat, onClose, onChangeData}) => {
     )
 }
 
-export default ChatSettings;
+const mapStateToProps = (state) => ({
+    currentChat: state.currentChat.currentChat,
+
+});
+
+export default connect(mapStateToProps)(ChatSettings);

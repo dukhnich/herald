@@ -13,7 +13,7 @@ const uploadFile = async (file) => {
             body: formData
         })
         const json = await result.json();
-        console.log("UPLOAD RESULT", json);
+        // console.log("UPLOAD RESULT", json);
         return json
     }
     catch(e){

@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
-import List from "../../../shared/components/List";
+import List from "../../../../shared/components/List";
 import ChatSettings from "./ChatSettings";
-import Spinner from "../../../shared/components/Spinner";
-import Icon from "../../../shared/icon";
+import Spinner from "../../../../shared/components/Spinner";
+import Icon from "../../../../shared/icon";
 
-const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChangeData}) => {
-    const isOwner = currentUser._id === chat.owner._id;
+const ChatModal = ({currentChat, currentUser, status, currentUserChats, onClose, onChangeData}) => {
+    const isOwner = currentUser._id === currentChat.owner._id;
 
     const onClick =  (e) => {
         e.preventDefault();
@@ -14,14 +14,14 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
     }
 
     React.useEffect(() => {
-        const currentChat = currentUserChats.reduce(
-            (prev, current) => current._id === chat._id ? current : prev
+        const oldData = currentUserChats.reduce(
+            (prev, current) => current._id === currentChat._id ? current : prev
             ,null)
-            if (currentChat && currentChat.members.length !== chat.members.length) {
+            if (oldData && oldData.members.length !== currentChat.members.length) {
                 onChangeData()
             }
         }
-        ,[chat._id, chat.members.length, currentUserChats, onChangeData])
+        ,[currentChat._id, currentChat.members.length, currentUserChats, onChangeData])
 
     if (status === "resolved") {
 
@@ -29,7 +29,6 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
             <>
                 {isOwner ?
                     <ChatSettings
-                        chat={chat}
                         onClose={onClick}
                         onChangeData={onChangeData}
                     />
@@ -49,9 +48,8 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
 
                     <h2 className={"subheader text-white mt-5 mb-3"}>Members of the chat</h2>
                     <List
-                        items={chat.members}
+                        items={currentChat.members}
                         isRemoveButton={true}
-                        currentChat={chat}
                     />
                 </div>
             </>
@@ -63,6 +61,7 @@ const ChatModal = ({chat, currentUser, status, currentUserChats, onClose, onChan
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
     currentUserChats: state.chats.currentUserChats,
+    currentChat: state.currentChat.currentChat,
     status : state.chats.status,
 
 });

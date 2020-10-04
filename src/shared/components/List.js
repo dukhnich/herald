@@ -1,13 +1,13 @@
 import React from "react";
 import ChatItem from "./ChatItem/ChatItem";
 import UserItem from "./UserItem/UserItem";
-import MessageItem from "./MessageItem";
+import MessageItem from "../../screens/chat/components/messages/MessageItem";
 import NotificationItem from "./navigation/NotificationItem";
 
-const Item = ({item, activeItem, onClick, currentChat}) => {
+const Item = ({item, activeItem, onClick}) => {
     const type = item.members ? "chat"
         : item.nick ? "user"
-        : "notification";
+        : item.notifications ? "notification" : "";
 
     const liOnClick = (e) => {
         e.stopPropagation();
@@ -28,7 +28,6 @@ const Item = ({item, activeItem, onClick, currentChat}) => {
                     <UserItem
                         isActive={(activeItem === item._id)}
                         user={item}
-                        currentChat={currentChat}
                     />
                 );
             case "message":
@@ -57,7 +56,7 @@ const Item = ({item, activeItem, onClick, currentChat}) => {
     )
 }
 
-const List = ({items, currentChat}) => {
+const List = ({items}) => {
     const [activeItem, setActive] = React.useState(null);
 
     const changeActive = (id) => {
@@ -67,14 +66,13 @@ const List = ({items, currentChat}) => {
 
     return (
 
-        <ul className={"list-group search-list mw-100"}>
+        <ul className={"list-group search-list w-100 mw-100"}>
             {items.map((item) => (
                     <Item
                         key={item._id}
                         item={item}
                         onClick={changeActive}
                         activeItem={activeItem}
-                        currentChat = {currentChat}
                     />
             ))}
         </ul>

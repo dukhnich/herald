@@ -1,6 +1,6 @@
 import React from "react";
-import {ENDPOINT} from "../../../API";
-import Icon from "../../../shared/icon";
+import {ENDPOINT} from "../../../../API";
+import Icon from "../../../../shared/icon";
 
 const MediaList = ({media}) => {
     if (!(media && media.length)) return null

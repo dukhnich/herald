@@ -14,7 +14,11 @@ if (token !== null) {
     client.setHeader("Authorization", `Bearer ${localStorage.getItem("token")}`);
     socket.emit('jwt', token);
     socket.on('jwt_ok',   data => console.log(data))
-    socket.on('jwt_fail', error => console.log(error))
+    socket.on('jwt_fail', error => console.log(error));
+    // socket.on('msg', msg =>
+    //         console.log(msg)
+    //     // dispatch(getNotifications(msg))
+    // );
 }
 
 export default client;

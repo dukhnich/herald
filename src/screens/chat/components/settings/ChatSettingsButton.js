@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import Icon from "../../../shared/icon";
-import Modal from "../../../shared/components/Modal/Modal";
+import Icon from "../../../../shared/icon";
+import Modal from "../../../../shared/components/Modal/Modal";
 import ChatModal from "./ChatModal";
 
-const ChatSettingsButton = ({chat, currentUser, currentUserChats, onChangeData}) => {
+const ChatSettingsButton = ({currentUser, currentChat, onChangeData}) => {
     const [openMenu,setOpen] = React.useState(false)
     const alert = React.useRef();
-    const isOwner = currentUser._id === chat.owner._id;
+    const isOwner = currentUser._id === currentChat.owner._id;
 
     const changeOpen = () => {
         setOpen((prev) => !prev)
@@ -31,7 +31,6 @@ const ChatSettingsButton = ({chat, currentUser, currentUserChats, onChangeData})
                         open={openMenu}
                     >
                         <ChatModal
-                            chat = {chat}
                             onClose = {changeOpen}
                             onChangeData = {onChangeData}
                         />
@@ -45,7 +44,7 @@ const ChatSettingsButton = ({chat, currentUser, currentUserChats, onChangeData})
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
-    currentUserChats: state.chats.currentUserChats,
+    currentChat: state.currentChat.currentChat,
 });
 
 export default connect(mapStateToProps)(ChatSettingsButton);

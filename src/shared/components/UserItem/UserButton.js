@@ -4,21 +4,21 @@ import addOrDeleteMember from "../../helpers/addOrDeleteMembers";
 import AddButton from "./AddButton";
 import Icon from "../../icon";
 
-const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, dispatch}) => {
+const UserButton = ({user, currentChat, currentUser, changeOpen, currentUserChats, dispatch}) => {
 
     const addToThisChat = (e) => {
         e.preventDefault();
-        addOrDeleteMember(dispatch, user._id, chat, true);
+        addOrDeleteMember(dispatch, user._id, currentChat, true);
     }
 
     const deleteMember = (e) => {
         e.preventDefault();
-        addOrDeleteMember(dispatch, user._id, chat, false);
+        addOrDeleteMember(dispatch, user._id, currentChat, false);
     }
 
-    if (chat) {
-        if (currentUser._id === chat.owner._id) {
-            const isUserInChat = chat.members.reduce(
+    if (Object.keys(currentChat).length) {
+        if (currentUser._id === currentChat.owner._id) {
+            const isUserInChat = currentChat.members.reduce(
                 (prev, member) => member._id === user._id ? true : prev
                 , false
             )
@@ -61,6 +61,7 @@ const UserButton = ({user, chat, currentUser, changeOpen, currentUserChats, disp
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
     currentUserChats: state.chats.currentUserChats,
+    currentChat: state.currentChat.currentChat,
 });
 
 export default connect(mapStateToProps)(UserButton);

@@ -400,6 +400,13 @@ label.toggler.toggler-checked::before {
     order: -1;
 }
 
+.replyed-message {
+    background-color: #b1e2ff;
+    max-height: 50px;
+    max-width: 33%;
+
+}
+
 .message-text {
     color: #000000;
     font-family: 'Karla', 'Roboto', 'Arial', sans-serif;
