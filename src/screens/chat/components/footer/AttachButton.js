@@ -40,7 +40,7 @@ const AttachButton = ({currentChat, dispatch, currentMessages}) => {
         <button
             onClick={removeAttach}
             type={"button"}
-            className={"custom-button pt-2 ml-3"}
+            className={"custom-button pt-2 ml-2"}
         >
             <Icon
                 color={"#ffbdb8"}

@@ -10,8 +10,8 @@ const loadMsg = gql`
         text
         media {_id url originalFileName type text}
         replies {_id}
-        replyTo {_id owner {nick} text media {type}}
-        forwarded {_id}
+        replyTo {_id owner {nick} text media {_id url originalFileName type text}}
+        forwarded {_id owner {nick} text media {_id url originalFileName type text}}
         forwardWith {_id}
     }    
   }
@@ -34,7 +34,7 @@ export const getNotifications = (notification) => async (dispatch, _, api) => {
             dispatch({ type: "notifications/add/rejected" });
         }
         const {MessageFindOne: fullMsg} = data;
-        console.log(fullMsg)
+        // console.log(fullMsg)
         dispatch({
             type: "notifications/add/resolved",
             payload: fullMsg

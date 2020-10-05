@@ -400,13 +400,17 @@ label.toggler.toggler-checked::before {
     order: -1;
 }
 
-.replyed-message {
+.linked-message {
     max-height: 50px;
-    max-width: 33%;
+    max-width: 40%;
 }
 
 .light-blue-bg {
     background-color: #b1e2ff;
+}
+
+.rose-bg {
+    background-color: #ffbdb8;
 }
 
 .message-text {

@@ -4,6 +4,7 @@ import AttachButton from "./AttachButton";
 import {connect} from "react-redux";
 import {findThisMessage} from "../../FindThisMessage";
 import ReplyTo from "./ReplyTo";
+import Forwarded from "./Forwarded";
 
 const ChatFooter = ({currentChat, currentMessages, dispatch}) => {
     const thisMsg = findThisMessage(currentMessages, currentChat._id)
@@ -16,12 +17,16 @@ const ChatFooter = ({currentChat, currentMessages, dispatch}) => {
     };
 
     return (
-        <div className={"black-footer pl-3 pt-3 pb-0 pr-5 d-flex align-items-start"}>
+        <div className={"black-footer pl-3 pt-3 pb-0 pr-3 d-flex align-items-start"}>
             <SendBtn/>
             <AttachButton />
-            <ReplyTo />
+            <div className={"linked-message d-flex flex-shrink-0"}>
+                <ReplyTo />
+                <Forwarded />
+            </div>
+
             <textarea
-                className={"black-input pt-2 ml-3 h-75 flex-grow-1 mr-5"}
+                className={"black-input pt-2 ml-3 h-75 flex-grow-1"}
                 placeholder={"Type message"}
                 name={"msg"}
                 value={thisMsg.text}

@@ -65,7 +65,6 @@ const mapStateToProps = (state) => ({
     statusUser: state.currentUser.status,
     currentUserChats: state.chats.currentUserChats,
     statusChats: state.chats.status,
-
 });
 
 export default connect(mapStateToProps)(Chats);

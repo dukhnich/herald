@@ -28,8 +28,8 @@ const loadChatQuery = gql`
             text
             media {_id url originalFileName type text}
             replies {_id}
-            replyTo {_id owner {nick} text media {type}}
-            forwarded {_id}
+            replyTo {_id owner {nick} text media {_id url originalFileName type text}}
+            forwarded {_id owner {nick} text media {_id url originalFileName type text}}
             forwardWith {_id}
         }
         avatar {

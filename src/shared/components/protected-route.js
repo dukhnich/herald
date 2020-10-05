@@ -6,7 +6,7 @@ import {loadChats} from "../../services/ownersChats";
 import {socket} from "../../API";
 import {getNotifications} from "../../services/notifications";
 
-const ProtectedRoute = ({ children, redirectTo, dispatch, currentChat, currentUserChats, currentUser, isAuth, ...rest }) => {
+const ProtectedRoute = ({ children, redirectTo, goTo, dispatch, currentChat, currentUserChats, currentUser, isAuth, ...rest }) => {
     const loadData = () => {
         if (rest.computedMatch.path !== "/chats/:id" && Object.keys(currentChat).length) {
             dispatch({ type: "loadChat/quit" });
@@ -24,6 +24,7 @@ const ProtectedRoute = ({ children, redirectTo, dispatch, currentChat, currentUs
            loadData()
         },
         [])
+
     return (
         <Route
             {...rest}
@@ -49,6 +50,7 @@ ProtectedRoute.defaultProps = {
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
     currentChat: state.currentChat.currentChat,
+    goTo: state.currentChat.goTo,
     currentUserChats: state.chats.currentUserChats,
     isAuth: (state.auth.isAuth),
 });

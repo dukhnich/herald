@@ -30,7 +30,7 @@ const notificationsReducer = (state = initialState, action) => {
                     notifications: [action.payload]
                 }
             )
-            console.log("chats", chats)
+            // console.log("chats", chats)
 
             return {
                 ...state,

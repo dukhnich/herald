@@ -7,20 +7,10 @@ const loadChatsQuery = gql`
         title
         members {
             _id
-            nick
-            avatar {url}
         }
         owner {_id}
         messages {
             _id
-            createdAt
-            owner {_id}
-            text
-            media {url}
-            replies {_id}
-            replyTo {_id}
-            forwarded {_id}
-            forwardWith {_id}
         }
         avatar {
             url

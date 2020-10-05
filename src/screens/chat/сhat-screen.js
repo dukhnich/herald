@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import NavBar from "../../shared/components/navigation/NavBar";
 import Spinner from "../../shared/components/Spinner";
 import MessageList from "./components/messages/MessageList";
@@ -8,11 +8,11 @@ import ChatFooter from "./components/footer/ChatFooter";
 import ChatSettingsButton from "./components/settings/ChatSettingsButton";
 import {loadChat} from "../../services/currentChat";
 
-const Chat = ({notifications, dispatch, currentUser, currentChat, status}) => {
-    const { id } = useParams();
+const Chat = ({notifications, goTo, dispatch, currentUser, currentChat, status}) => {
+    const {id} = useParams();
     const [newMessages, setNewMessages] = React.useState([]);
     const [timeoutId, setTimeoutId] = React.useState(null);
-    const[needLoad, setNeedLoad] = React.useState(true)
+    const[needLoad, setNeedLoad] = React.useState(true);
 
     const onChangeData = () => {
         setNeedLoad (true)
@@ -36,17 +36,24 @@ const Chat = ({notifications, dispatch, currentUser, currentChat, status}) => {
         return () => clearTimeout(timeoutId)
     }
 
-    React.useEffect( ()=>{
-            if (needLoad) {
-                loadCurrentChat()
-                setNeedLoad(false)
-            }
-        },
-        [needLoad])
 
     React.useEffect( ()=>{
-        const thisChatNotifications = notifications.reduce((prev, chat) => 
-            chat._id === id ? chat.notifications : prev, 
+        if (goTo) {
+            dispatch(loadChat(goTo));
+        }
+
+        if (needLoad) {
+            loadCurrentChat()
+            setNeedLoad(false)
+        }
+        if (newMessages.length) {
+            deleteNotification()
+        }
+    },[goTo, needLoad, newMessages])
+
+    React.useEffect(() => {
+        const thisChatNotifications = notifications.reduce((prev, chat) =>
+                chat._id === id ? chat.notifications : prev,
             []);
 
         if (thisChatNotifications.length) {
@@ -60,11 +67,9 @@ const Chat = ({notifications, dispatch, currentUser, currentChat, status}) => {
         }
     },[currentUser._id, id, notifications])
 
-    React.useEffect( ()=>{
-        if (newMessages.length) {
-            deleteNotification()
-        }
-    },[newMessages])
+    if (goTo) {
+        return <Redirect to={`/chats/${goTo}`} />;
+    }
 
     return (
         <div className={"vh-100 my-wrapper "}>
@@ -91,6 +96,7 @@ const Chat = ({notifications, dispatch, currentUser, currentChat, status}) => {
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser.currentUser,
     currentChat: state.currentChat.currentChat,
+    goTo: state.currentChat.goTo,
     status: state.currentChat.status,
     notifications: state.notifications.chats,
 });
