@@ -20,7 +20,7 @@
   display: block;
   width: 0;
   height: 0;
-  opacity: 10%;
+  opacity: 0.1;
   border-right: 2000px solid transparent;
   border-bottom: 2000px solid black;
   position: absolute;
