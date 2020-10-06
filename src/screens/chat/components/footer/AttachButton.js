@@ -22,7 +22,7 @@ const AttachButton = ({currentChat, dispatch, currentMessages}) => {
 
 
     return (<>
-        <label className={"pt-2"}>
+        <label className={"pt-2 mr-1"}>
             <Icon
                 color={thisMsg.attach && thisMsg.attach.length ? "#ffbdb8" : "#ffffff"}
                 icon="camera"
@@ -40,7 +40,7 @@ const AttachButton = ({currentChat, dispatch, currentMessages}) => {
         <button
             onClick={removeAttach}
             type={"button"}
-            className={"custom-button pt-2 ml-2"}
+            className={"custom-button pt-2 mx-1"}
         >
             <Icon
                 color={"#ffbdb8"}

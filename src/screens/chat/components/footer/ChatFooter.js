@@ -20,7 +20,7 @@ const ChatFooter = ({currentChat, currentMessages, dispatch}) => {
         <div className={"black-footer pl-3 pt-3 pb-0 pr-3 d-flex align-items-start"}>
             <SendBtn/>
             <AttachButton />
-            <div className={"linked-message d-flex flex-shrink-0"}>
+            <div className={"linked-message d-flex justify-content-between flex-shrink-0"}>
                 <ReplyTo />
                 <Forwarded />
             </div>
