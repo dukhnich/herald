@@ -15,10 +15,6 @@ export const menuRoutes =   [
         name: "Profile"
     },
     {
-        path: "/registration",
-        name: "New user"
-    },
-    {
         path: "/search",
         name: "Search"
     },

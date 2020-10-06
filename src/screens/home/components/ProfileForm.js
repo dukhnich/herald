@@ -6,6 +6,7 @@ import {gql} from "graphql-request";
 import {connect} from "react-redux";
 import ProfileHeader from "./ProfileHeader";
 import {logout} from "../../../services/login";
+import passwordValidator from "../../../shared/helpers/passwordValidator";
 
 const addUserInfo = gql`
   mutation changeUser($_id: ID!, $login: String, $password: String, $nick: String, $avatar: MediaInput) {
@@ -27,6 +28,7 @@ const addUserInfo = gql`
 
 const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
     const [values, setValues] = React.useState(currentUser);
+    const [error, setError] = React.useState(null);
 
     const mutateUser = (data, isNeedRerender = true) => {
         API.request(addUserInfo
@@ -47,8 +49,15 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
 
     const changePassword = (e) => {
         e.preventDefault();
-        mutateUser({"_id": values._id, "password": values.password}, false);
-        dispatch(logout());
+        setError(null);
+        const isPasswordValid = passwordValidator(values.password);
+        if (true !== isPasswordValid) {
+            setError(isPasswordValid);
+        }
+        else {
+            mutateUser({"_id": values._id, "password": values.password}, false);
+            dispatch(logout())
+        };
     }
 
     // const deleteAccount = (e) => {
@@ -111,6 +120,9 @@ const ProfileForm = ({currentUser, onChangeData, dispatch}) => {
                         onChange={onChange}
                     />
                 </label>
+                {"string" === typeof error ? (
+                    <div className="alert alert-danger">{error}</div>
+                ) : null}
                 <div className={"mt-4 d-flex justify-content-between align-items-center"}>
                     <button
                         onClick={changePassword}

@@ -8,9 +8,8 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "images/eilean-donan-view.jpg",
+      "type": "image/jpg"
     },
     {
       "src": "logo512.png",

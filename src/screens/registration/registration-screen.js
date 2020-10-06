@@ -6,35 +6,56 @@ import InputGroup from "../../shared/components/form/InputGroup";
 import FormFooter from "../../shared/components/form/FormFooter";
 import NavBar from "../../shared/components/navigation/NavBar";
 import {Redirect} from "react-router-dom";
+import Banner from "./components/Banner";
+import passwordValidator from "../../shared/helpers/passwordValidator";
+import {connect} from "react-redux";
 
 const createMutation = gql`
-  mutation create($login: String!, $password: String!, $nick: String!) {
+  mutation create($login: String!, $password: String!, $nick: String) {
     UserUpsert(user: { login: $login, password: $password, nick: $nick }) {
+      _id
       login
       nick
     }
   }
 `;
 
-const CreateUserForm = () => {
+const CreateUserForm = ({isLoggedIn}) => {
     const [values, setValues] = React.useState({});
     const [status, setStatus] = React.useState(null);
+    const [error, setError] = React.useState(null);
+    if (isLoggedIn) {
+        return <Redirect to="/menu" />;
+    }
+
     if (status === "resolved") {
         return <Redirect to="/login" />;
     }
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(values);
+        setError(null);
         setStatus("pending");
-        API.request(createMutation, values)
-            .then(result => {
-                console.log(result)
-                setStatus("resolved")
-            })
-            .catch(e => {
-                console.log(e);
-                setStatus("rejected")
-            });
+        try {
+            let err = ""
+            if (!values.login || !values.password) {
+                err += "Empty required fields. "
+            }
+            const isPasswordValid = passwordValidator(values.password);
+            if (true !== isPasswordValid) {
+                err += isPasswordValid
+            }
+            if (err.length) {
+                throw new Error("Fail data: " + err)
+            }
+            await API.request(createMutation, values)
+            setStatus("resolved")
+        } catch(e) {
+            console.log(e.message);
+            (e.message.includes("Fail data: ")) ?
+                setError (e.message)
+                : setError("Something went wrong");
+            setStatus("rejected")
+        }
     };
 
     const onChange = (e) => {
@@ -48,19 +69,13 @@ const CreateUserForm = () => {
     return (
         <>
         <NavBar text = {"Registration"}/>
-            <div className="banner">
-                <picture className={"cover"}>
-                    <img src="images/eilean-donan-view.jpg" alt="background"/>
-                </picture>
-                <h1 className={"m-4"}>Sign Up</h1>
-
-            </div>
-            <div className={"black-shadow"}>
+        <Banner/>
+        <div className={"black-shadow"}>
             <div className={"container-small"}>
                 <form onSubmit={onSubmit}>
                     <div className={"form-body"}>
 
-                        <InputGroup label={"Login"}>
+                        <InputGroup label={"Login*"}>
                             <input
                                 type="text"
                                 placeholder="Login"
@@ -76,7 +91,7 @@ const CreateUserForm = () => {
                                 onChange={onChange}
                             />
                         </InputGroup>
-                        <InputGroup label={"Password"}>
+                        <InputGroup label={"Password*"}>
                             <input
                                 type="password"
                                 placeholder="Password"
@@ -97,9 +112,9 @@ const CreateUserForm = () => {
                 <div className="my-3">
                     {status === "pending" ? <Spinner /> : null}
                 </div>
-                <div className="mt-5 text-center">
+                <div className="mt-5 text-center d-flex justify-content-center">
                     {status === "rejected" ? (
-                        <span className="alert alert-danger">Something went wrong</span>
+                        <div className="alert alert-danger">{error}</div>
                     ) : null}
                 </div>
             </div>
@@ -108,4 +123,8 @@ const CreateUserForm = () => {
     )
 }
 
-export default CreateUserForm
+const mapStateToProps = (state) => ({
+    isLoggedIn: (state.auth.isAuth),
+});
+export default connect(mapStateToProps)(CreateUserForm);
+
