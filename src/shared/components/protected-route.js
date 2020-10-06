@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import {loadUser} from "../../services/userData";
 import {loadChats} from "../../services/ownersChats";
-import {socket} from "../../API";
-import {getNotifications} from "../../services/notifications";
 
 const ProtectedRoute = ({ children, redirectTo, goTo, dispatch, currentChat, currentUserChats, currentUser, isAuth, ...rest }) => {
     const loadData = () => {
@@ -17,7 +15,7 @@ const ProtectedRoute = ({ children, redirectTo, goTo, dispatch, currentChat, cur
         if (currentUserChats.length === 0) {
             dispatch(loadChats(currentUser._id));
         }
-        socket.on('msg', msg => dispatch(getNotifications(msg)));
+        // socket.on('msg', msg => dispatch(getNotifications(msg)));
     }
 
     React.useEffect(() => {
