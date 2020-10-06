@@ -1,81 +1,94 @@
 {
   "selection": [
     {
-      "order": 0,
+      "order": 3,
+      "name": "quill"
+    },
+    {
+      "order": 4,
       "name": "tick"
     },
     {
-      "order": 0,
+      "order": 5,
       "name": "forward"
     },
     {
-      "order": 0,
+      "order": 6,
       "name": "reply"
     },
     {
-      "order": 0,
+      "order": 7,
       "name": "download"
     },
     {
-      "order": 0,
+      "order": 8,
       "name": "сlock"
     },
     {
-      "order": 0,
+      "order": 9,
       "name": "more"
     },
     {
-      "order": 0,
+      "order": 10,
       "name": "settings"
     },
     {
-      "order": 0,
+      "order": 11,
       "name": "camera"
     },
     {
-      "order": 0,
+      "order": 12,
       "name": "search",
       "prevSize": 32
     },
     {
-      "order": 0,
+      "order": 18,
       "name": "alert",
       "prevSize": 32
     },
     {
-      "order": 0,
+      "order": 17,
       "name": "send",
       "prevSize": 32
     },
     {
-      "order": 0,
+      "order": 16,
       "name": "arrow",
       "prevSize": 32
     },
     {
-      "order": 0,
+      "order": 15,
       "name": "plus"
     },
     {
-      "order": 0,
+      "order": 14,
       "name": "minus"
     },
     {
-      "order": 0,
+      "order": 13,
       "name": "cross"
     }
   ],
   "metadata": {
     "name": "Chat",
     "importSize": {
-      "width": 34,
-      "height": 26
+      "width": 512,
+      "height": 512
     },
-    "iconsHash": 493049803
+    "iconsHash": 661805991
   },
   "height": 1024,
   "prevSize": 32,
   "icons": [
+    {
+      "paths": [
+        "M0 1024c128-384 463-1024 1024-1024-263 211-384 704-576 704s-192 0-192 0l-192 320h-64z"
+      ],
+      "grid": 0,
+      "tags": [
+        "quill"
+      ]
+    },
     {
       "paths": [
         "M0 551.385l472.615 472.615 866.462-866.462-157.538-157.538-708.923 708.923-315.077-315.077z"

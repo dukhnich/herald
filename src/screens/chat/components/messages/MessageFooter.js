@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import ReplyButton from "./ReplyButton";
 import ForwardButton from "./ForwardButton";
+import EditButton from "./EditButton";
 
 const MessageFooter = ({msg, currentUser}) => {
     const { createdAt, owner} = msg;
@@ -26,6 +27,7 @@ const MessageFooter = ({msg, currentUser}) => {
         <div className={"small brown-text align-items-center d-flex" + (currentUser._id === owner._id ? " justify-content-end" : "")}>
             <ReplyButton msg = {msg}/>
             <ForwardButton msg = {msg}/>
+            <EditButton msg = {msg}/>
             <time
                 className={"mb-0 text-right"}
                 dateTime={isNaN(+createdAt) ? createdAt : new Date (+createdAt).toISOString()}

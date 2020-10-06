@@ -56,6 +56,7 @@ const UserButton = ({user, currentChat, currentUser, changeOpen, currentUserChat
             return (<AddButton changeOpen={changeOpen}/>)
         else return null
     }
+    return null
 }
 
 const mapStateToProps = (state) => ({

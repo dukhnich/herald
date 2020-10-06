@@ -273,6 +273,21 @@
         "name": "download",
         "prevSize": 32
       }
+    },
+    {"icon": {
+      "paths": [
+        "M0 1024c128-384 463-1024 1024-1024-263 211-384 704-576 704s-192 0-192 0l-192 320h-64z"
+      ],
+      "grid": 0,
+      "tags": [
+        "quill"
+      ]
+    },
+      "properties":     {
+        "order": 71,
+        "name": "quill",
+        "prevSize": 32
+      }
     }
   ],
   "colorThemes": [],
