@@ -19,7 +19,7 @@ const ReplyTo = ({currentChat, currentMessages, dispatch}) => {
         thisMsg.replyTo && Object.keys(thisMsg.replyTo).length ? (
             <div
                 onClick={onClick}
-                className={"mx-1 flex-grow-1 w-50"}
+                className={"mr-3"}
             >
                 <LinkedMsg msg={thisMsg.replyTo} />
             </div>

@@ -26,7 +26,7 @@ const MessageItem = ({message, currentUser}) => {
                         : null
                     }
                     {replyTo && Object.keys(replyTo).length ?
-                        (<LinkedMsg msg={replyTo}/>)
+                        (<LinkedMsg msg={replyTo} isFull={true}/>)
                         : null
                     }
                     {text ?

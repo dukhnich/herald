@@ -1,35 +1,32 @@
 import React from "react";
 import Icon from "../../../../shared/icon";
 import Modal from "../../../../shared/components/Modal/Modal";
-import SelectChatToForward from "./SelectChatToForward";
+import SelectEmojiModal from "./SelectEmojiModal";
 
-const ForwardButton = ({msg}) => {
+const EmojiButton = () => {
     const [openMenu,setOpen] = React.useState(false);
 
     const changeOpen = () => {
         setOpen((prev) => !prev)
     }
-
     return (
         <div className={"mr-3"}>
             <button
-                className={"custom-button mr-1 p-1"}
+                className={"custom-button  pt-2"}
                 type={"button"}
                 onClick={changeOpen}
             >
                 <Icon
-                    icon="forward"
-                    color={"#00a0ff"}
-                    size={"1.5em"}
+                    icon="smile"
+                    color={"#ffffff"}
+                    size={"1.2rem"}
                 />
             </button>
-            Forward
             {openMenu ?
                 <Modal open={openMenu}>
                     <div className={"container-small pt-5"}>
-                        <SelectChatToForward
+                        <SelectEmojiModal
                             onClose={changeOpen}
-                            message = {msg}
                         />
                     </div>
                 </Modal> : null
@@ -38,4 +35,4 @@ const ForwardButton = ({msg}) => {
     )
 }
 
-export default ForwardButton
+export default EmojiButton

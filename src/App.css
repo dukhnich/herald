@@ -327,11 +327,7 @@ ul.search-list {
 
 ul.message-list {
     border-radius: 0;
-    height: calc(100vh - 205px);
-    overflow-y:auto;
-    /*overflow-x: hidden;*/
-    padding-right: 15px;
-
+    list-style: none;
 }
 
 li.active-item {

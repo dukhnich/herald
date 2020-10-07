@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {findThisMessage} from "../../FindThisMessage";
 import ReplyTo from "./ReplyTo";
 import Forwarded from "./Forwarded";
+import EmojiButton from "./EmojiButton";
 
 const ChatFooter = ({currentChat, currentMessages, dispatch}) => {
     const thisMsg = findThisMessage(currentMessages, currentChat._id)
@@ -17,21 +18,23 @@ const ChatFooter = ({currentChat, currentMessages, dispatch}) => {
     };
 
     return (
-        <div className={"black-footer pl-3 pt-3 pb-0 pr-3 d-flex align-items-start"}>
+        <div className={"black-footer p-3 flex-shrink-0"}>
             <SendBtn/>
-            <AttachButton />
-            <div className={"linked-message d-flex justify-content-between flex-shrink-0"}>
+            <div className={"d-flex w-75"}>
                 <ReplyTo />
                 <Forwarded />
             </div>
-
-            <textarea
-                className={"black-input pt-2 ml-3 h-75 flex-grow-1"}
-                placeholder={"Type message"}
-                name={"msg"}
-                value={thisMsg.text}
-                onChange={onChange}
-            />
+            <div className={"d-flex align-items-start"}>
+                <EmojiButton />
+                <AttachButton />
+                <textarea
+                    className={"black-input pt-2 mx-3 flex-shrink-1 flex-grow-1"}
+                    placeholder={"Type message"}
+                    name={"msg"}
+                    value={thisMsg.text}
+                    onChange={onChange}
+                />
+            </div>
         </div>
     )
 }

@@ -4,8 +4,9 @@ import List from "../../../../shared/components/List";
 import ChatSettings from "./ChatSettings";
 import Spinner from "../../../../shared/components/Spinner";
 import Icon from "../../../../shared/icon";
+import {loadChat} from "../../../../services/currentChat";
 
-const ChatModal = ({currentChat, currentUser, status, currentUserChats, onClose, onChangeData}) => {
+const ChatModal = ({currentChat, currentUser, status, currentUserChats, dispatch, onClose}) => {
     const isOwner = currentUser._id === currentChat.owner._id;
 
     const onClick =  (e) => {
@@ -18,10 +19,10 @@ const ChatModal = ({currentChat, currentUser, status, currentUserChats, onClose,
             (prev, current) => current._id === currentChat._id ? current : prev
             ,null)
             if (oldData && oldData.members.length !== currentChat.members.length) {
-                onChangeData()
+                dispatch(loadChat(currentChat._id));
             }
         }
-        ,[currentChat._id, currentChat.members.length, currentUserChats, onChangeData])
+        ,[currentChat._id, currentChat.members.length, currentUserChats, dispatch])
 
     if (status === "resolved") {
 
@@ -30,7 +31,6 @@ const ChatModal = ({currentChat, currentUser, status, currentUserChats, onClose,
                 {isOwner ?
                     <ChatSettings
                         onClose={onClick}
-                        onChangeData={onChangeData}
                     />
                     :
                     <button

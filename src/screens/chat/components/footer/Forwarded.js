@@ -19,7 +19,7 @@ const Forwarded = ({currentChat, currentMessages, dispatch}) => {
         thisMsg.forwarded && Object.keys(thisMsg.forwarded).length ? (
                 <div
                     onClick={onClick}
-                    className={"mx-1 flex-grow-1 w-50"}
+                    className={""}
                 >
                     <LinkedMsg msg={thisMsg.forwarded}  isForward = {true}/>
                 </div>

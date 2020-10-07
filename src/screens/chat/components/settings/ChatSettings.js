@@ -8,6 +8,7 @@ import {search} from "../../../../shared/helpers/search";
 import Spinner from "../../../../shared/components/Spinner";
 import List from "../../../../shared/components/List";
 import {connect} from "react-redux";
+import {loadChat} from "../../../../services/currentChat";
 
 const changeChatTitle = gql`
   mutation changeChat($_id: ID!, $title: String) {
@@ -17,17 +18,17 @@ const changeChatTitle = gql`
   }
 `;
 
-const ChatSettings = ({currentChat, onClose, onChangeData}) => {
+const ChatSettings = ({currentChat, onClose, dispatch}) => {
     const [values, setValues] = React.useState(currentChat);
     const [result, setResult] = React.useState(null);
     const [status, setStatus] = React.useState(null);
 
-    const mutateChat = (data, isNeedRerender = true) => {
+    const mutateChat = (data) => {
         API.request(changeChatTitle
             , data
         )
             .then(() => {
-                isNeedRerender && onChangeData();
+                dispatch(loadChat(currentChat._id));
             })
             .catch(e => {
                 console.log(e);

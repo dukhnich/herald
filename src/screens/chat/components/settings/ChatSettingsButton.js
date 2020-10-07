@@ -4,7 +4,7 @@ import Icon from "../../../../shared/icon";
 import Modal from "../../../../shared/components/Modal/Modal";
 import ChatModal from "./ChatModal";
 
-const ChatSettingsButton = ({currentUser, currentChat, onChangeData}) => {
+const ChatSettingsButton = ({currentUser, currentChat}) => {
     const [openMenu,setOpen] = React.useState(false)
     const alert = React.useRef();
     const isOwner = currentUser._id === currentChat.owner._id;
@@ -32,7 +32,6 @@ const ChatSettingsButton = ({currentUser, currentChat, onChangeData}) => {
                     >
                         <ChatModal
                             onClose = {changeOpen}
-                            onChangeData = {onChangeData}
                         />
                     </Modal>
                 )
